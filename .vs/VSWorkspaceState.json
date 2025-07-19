@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\isi-school-frontend\\public",
+    "\\isi-school-frontend\\src"
   ],
-  "SelectedNode": "\\C:\\Users\\USER\\Source\\Repos\\GestionSchool",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
