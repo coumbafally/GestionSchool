@@ -17,3 +17,9 @@ Route::controller(AuthController::class)->prefix('auth')->middleware('auth:api')
     Route::post('refresh', 'refresh');
 
 });
+
+Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function () {
+
+    // Route pour la gestion complète des classes
+    Route::apiResource('classes', App\Http\Controllers\Admin\ClasseController::class);
+});
