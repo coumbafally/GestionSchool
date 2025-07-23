@@ -1,0 +1,18 @@
+<div class="admin-container">
+  <aside class="admin-sidebar">
+    <h3>Menu Admin</h3>
+    <nav>
+      <ul>
+        <li><a routerLink="/admin/dashboard">Tableau de Bord</a></li>
+        <li><a routerLink="/admin/classes">Gestion des Classes</a></li>
+        <li><a routerLink="/admin/teachers">Gestion des Enseignants</a></li>
+        <li><a routerLink="/admin/students">Gestion des Élèves</a></li>
+      </ul>
+    </nav>
+    <button (click)="logout()">Déconnexion</button>
+  </aside>
+  <main class="admin-content">
+    
+    <router-outlet></router-outlet>
+  </main>
+</div>

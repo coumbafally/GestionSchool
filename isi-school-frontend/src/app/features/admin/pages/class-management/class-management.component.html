@@ -1,0 +1,58 @@
+<h2>Gestion des Classes</h2>
+
+<!-- Formulaire de création / édition -->
+<div class="form-container">
+  <h3>{{ isEditing ? 'Modifier la Classe' : 'Ajouter une Classe' }}</h3>
+  <form [formGroup]="classeForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="nom">Nom de la classe</label>
+      <input id="nom" type="text" formControlName="nom">
+    </div>
+    <div>
+      <label for="niveau">Niveau</label>
+      <input id="niveau" type="text" formControlName="niveau">
+    </div>
+    <button type="submit" [disabled]="classeForm.invalid">{{ isEditing ? 'Mettre à jour' : 'Ajouter' }}</button>
+    <button type="button" (click)="resetForm()" *ngIf="isEditing">Annuler</button>
+  </form>
+  <hr>
+<pre style="background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc;">
+  <strong>--- Infos de Débogage du Formulaire de Classe ---</strong>
+  <br>
+  État du formulaire : <strong>{{ classeForm.status }}</strong>
+  <br>
+  Valeurs : {{ classeForm.value | json }}
+  <br>
+  Erreurs : {{ classeForm.errors | json }}
+  <br>
+  Erreurs sur le champ 'nom': {{ classeForm.get('nom')?.errors | json }}
+  <br>
+  Erreurs sur le champ 'niveau': {{ classeForm.get('niveau')?.errors | json }}
+</pre>
+</div>
+
+<!-- Tableau des classes -->
+<div class="table-container">
+  <h3>Liste des Classes</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Niveau</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let classe of classes">
+        <td>{{ classe.id }}</td>
+        <td>{{ classe.nom }}</td>
+        <td>{{ classe.niveau }}</td>
+        <td>
+          <button (click)="editClasse(classe)">Modifier</button>
+          <button (click)="deleteClasse(classe.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
