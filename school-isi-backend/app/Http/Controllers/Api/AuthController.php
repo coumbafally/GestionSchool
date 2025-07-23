@@ -19,9 +19,11 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
+
+    
     public function login(Request $request)
     {
-        // 1. Valider les données d'entrée
+        $credentials = $request->only('email', 'password');
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
@@ -46,10 +48,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Permet à un admin de créer un nouvel utilisateur.
-     * NOTE: Pour ce projet, la création est gérée par l'admin,
-     * donc cette route devra être protégée.
-     *
+   
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -57,10 +56,11 @@ class AuthController extends Controller
     {
         // Validation des données pour un nouvel utilisateur
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
-            'role' => 'required|in:admin,enseignant,eleve'
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'role' => 'required|in:admin,enseignant,eleve','tuteur'
         ]);
 
         if($validator->fails()){
@@ -127,4 +127,5 @@ class AuthController extends Controller
             'user' => $user 
         ]);
     }
+
 }

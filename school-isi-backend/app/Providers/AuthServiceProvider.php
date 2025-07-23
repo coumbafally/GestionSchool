@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -52,6 +53,10 @@ class AuthServiceProvider extends ServiceProvider
         // On peut aussi combiner les rôles si besoin
         Gate::define('is-admin-or-enseignant', function (User $user) {
             return in_array($user->role, ['admin', 'enseignant']);
+        });
+
+         Gate::define('is-tuteur', function (User $user) {
+            return $user->role->nom === 'tuteur';
         });
     }
     }

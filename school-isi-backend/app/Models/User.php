@@ -19,7 +19,8 @@ class User extends Authenticatable implements JWTSubject
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nom',
+        'prenom',
         'email',
         'password',
         'role',
@@ -72,6 +73,10 @@ class User extends Authenticatable implements JWTSubject
 {
     return $this->hasOne(Eleve::class);
 }
+
+ public function parent() {
+        return $this->hasOne(ParentModel::class); 
+    }
 
 public function enseignant()
 {

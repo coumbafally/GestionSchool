@@ -1,36 +1,30 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Eleve extends Model
-
 {
+     use HasFactory;
+    protected $fillable = ['user_id', 'classe_id', 'date_naissance', 'lieu_naissance', 'adresse', 'identifiant_eleve'];
 
-    use HasFactory;
-     protected $guarded = [];
-
-     public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
     }
-
-        // Relation : Un élève appartient à une classe
-    public function classe()
-    {
+    public function classe() {
         return $this->belongsTo(Classe::class);
     }
-
-    // Relation : Un élève a plusieurs notes
-    public function notes()
-    {
+    public function tuteur() {
+        return $this->hasOne(ParentModel::class);
+    }
+    public function documents() {
+        return $this->hasMany(Document::class);
+    }
+    public function notes() {
         return $this->hasMany(Note::class);
     }
-
-    // Relation : Un élève a plusieurs documents
-    public function documents()
-    {
-        return $this->hasMany(Document::class);
+    public function bulletins() {
+        return $this->hasMany(Bulletin::class);
     }
 }
