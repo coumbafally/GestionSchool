@@ -21,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
 
     ->withExceptions(function (Exceptions $exceptions): void {
+
        /*  $exceptions->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
         // On vérifie si la requête s'attend à une réponse JSON
         if ($request->expectsJson()) {
@@ -28,4 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return response()->json(['message' => 'Unauthenticated.'], 401);
         }
     });*/
+
+        //
+
     })->create();

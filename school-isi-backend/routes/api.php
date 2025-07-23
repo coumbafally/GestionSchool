@@ -16,10 +16,13 @@ Route::controller(AuthController::class)->prefix('auth')->middleware('auth:api')
     Route::get('user-profile', 'userProfile');
     Route::post('refresh', 'refresh');
 
+<<<<<<< HEAD
 });
 
 Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function () {
 
     // Route pour la gestion complète des classes
     Route::apiResource('classes', App\Http\Controllers\Admin\ClasseController::class);
+=======
+>>>>>>> aab07b7c73a6935cd0b72e505066d2c8364362ec
 });
