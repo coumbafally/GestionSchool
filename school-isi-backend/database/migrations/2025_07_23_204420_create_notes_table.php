@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-             $table->foreignId('eleve_id')->constrained()->onDelete('cascade');
-        $table->foreignId('matiere_id')->constrained()->onDelete('cascade');
-        $table->foreignId('enseignant_id')->constrained()->onDelete('cascade');
-        $table->decimal('note', 4, 2); // 4 chiffres au total, 2 après la virgule (ex: 12.50)
-        $table->string('periode'); // ex: "Trimestre 1 2024"
-        $table->text('appreciation')->nullable();
+            $table->foreignId('eleve_id')->constrained('eleves')->onDelete('cascade');
+            $table->foreignId('matiere_id')->constrained('matieres')->onDelete('cascade');
+            $table->string('periode', 50);
+            $table->text('appreciation')->nullable();
+            $table->float('note');
             $table->timestamps();
         });
     }

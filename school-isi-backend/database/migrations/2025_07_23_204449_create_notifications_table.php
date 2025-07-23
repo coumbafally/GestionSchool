@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('eleves', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->foreignId('classe_id')->nullable()->constrained()->onDelete('set null');
-        $table->string('prenom');
-        $table->string('nom');
-        $table->date('date_de_naissance');
-        $table->text('adresse')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('type', 100);
+            $table->text('contenu');
+            $table->boolean('lu')->default(false);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('eleves');
+        Schema::dropIfExists('notifications');
     }
 };
