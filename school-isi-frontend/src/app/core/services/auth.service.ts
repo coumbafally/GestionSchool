@@ -93,10 +93,20 @@ export class AuthService {
     return userString ? JSON.parse(userString) : null;
   }
 
-  public getUserRole(): string | null {
-      const user = this.getUser();
-      return user ? user.role : null;
+  
+public getUserRole(): string | null {
+  // On récupère l'objet utilisateur complet
+  const user = this.getUser();
+
+  // On vérifie que l'utilisateur existe ET qu'il a une propriété 'role'
+  if (user && user.role) {
+      // On retourne directement la valeur de cette propriété
+      return user.role; // ex: "admin", "enseignant", etc.
   }
+  
+  // Si on ne trouve rien, on retourne null
+  return null;
+}
   isAuthenticated(): boolean {
     return this.getToken() !== null;
   }

@@ -3,24 +3,28 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Admin\ClasseController; 
 
 
-Route::controller(AuthController::class)->prefix('auth')->group(function () {
-    Route::post('login', 'login');
-    Route::post('register', 'register');
+Route::prefix('auth')->group(function () {
+    
+    // Routes publiques (pas de middleware ici)
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']); // Note: on la déplacera plus tard
+
+    // Routes protégées qui nécessitent un token
+    Route::middleware('auth:api')->group(function() {
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::get('user-profile', [AuthController::class, 'userProfile']);
+        Route::post('refresh', [AuthController::class, 'refresh']);
+    });
 });
 
-
-Route::controller(AuthController::class)->prefix('auth')->middleware('auth:api')->group(function () {
-    Route::post('logout', 'logout');
-    Route::get('user-profile', 'userProfile');
-    Route::post('refresh', 'refresh');
-
-});
-
+// --- GROUPE POUR LES ROUTES DE L'ADMINISTRATION ---
 Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function () {
-
+    
     // Route pour la gestion complète des classes
-   // Route::apiResource('classes', App\Http\Controllers\Admin\ClasseController::class);
-
+   // !Route::apiResource('classes', ClasseController::class);
+    
+    // Vous ajouterez les autres routes admin ici...
 });
