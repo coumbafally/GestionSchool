@@ -95,7 +95,7 @@ export class AuthService {
 
   public getUserRole(): string | null {
       const user = this.getUser();
-      return user ? user.role : null;
+       return user && user.role ? user.role.nom : null;
   }
   isAuthenticated(): boolean {
     return this.getToken() !== null;
