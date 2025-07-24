@@ -1,11 +1,10 @@
 import { Routes } from '@angular/router';
-// 1. Importer les gardiens que vous venez de créer
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 
 
 
-export const STUDENT_ROUTES: Routes = [];
+
 
 export const routes: Routes = [
   
@@ -37,7 +36,7 @@ export const routes: Routes = [
     path: 'tuteur',
     canActivate: [authGuard, roleGuard],
     data: { role: 'tuteur' },
-    loadChildren: () => import('./features/tuteur/tuteur.module').then(m => m.ParentModule)
+    loadChildren: () => import('./features/tuteur/tuteur.module').then(m => m.TuteurModule)
   },
 
  

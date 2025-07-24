@@ -13,7 +13,7 @@ import { AuthService } from '../../../../core/services/auth.service';
     ReactiveFormsModule   // Pour [formGroup], formControlName, etc.
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] // ASSUREZ-VOUS QUE LE FICHIER .css EXISTE
+  styleUrls: ['./login.component.css'] 
 })
 export class LoginComponent {
   loginForm: FormGroup;
