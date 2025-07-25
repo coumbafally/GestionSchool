@@ -8,7 +8,7 @@ class Tuteur extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['numero_tel', 'user_id', 'eleve_id', 'identifiant_parent'];
+    protected $fillable = ['numero_tel', 'user_id', 'eleve_id', 'identifiant_tuteur'];
 
     public function user() {
         return $this->belongsTo(User::class);

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('numero_tel');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('eleve_id')->constrained('eleves')->onDelete('cascade');
-            $table->string('identifiant_parent', 500)->unique();
+            $table->string('identifiant_tuteur', 500)->unique();
             $table->timestamps();
         });
     }

@@ -29,7 +29,7 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
    // !Route::apiResource('classes', ClasseController::class);
     
     // Vous ajouterez les autres routes admin ici...
-        Route::apiResource('enseignants', EnseignantController::class);
+    Route::apiResource('enseignants', EnseignantController::class);
     Route::apiResource('matieres', MatiereController::class);
     Route::apiResource('affectations', MatiereClasseEnseignantController::class);
 });
