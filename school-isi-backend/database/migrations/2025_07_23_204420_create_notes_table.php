@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('eleve_id')->constrained('eleves')->onDelete('cascade');
             $table->foreignId('matiere_id')->constrained('matieres')->onDelete('cascade');
             $table->string('periode', 50);
+            $table->enum('type', ['Devoir', 'Examen'])->default('Devoir');
             $table->text('appreciation')->nullable();
             $table->float('note');
             $table->timestamps();

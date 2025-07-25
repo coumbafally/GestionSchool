@@ -74,8 +74,8 @@ class User extends Authenticatable implements JWTSubject
     return $this->hasOne(Eleve::class);
 }
 
- public function parent() {
-        return $this->hasOne(ParentModel::class); 
+ public function tuteur() {
+        return $this->hasOne(TuteurModel::class); 
     }
 
 public function enseignant()
