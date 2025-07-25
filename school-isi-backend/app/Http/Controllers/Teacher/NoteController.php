@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TuteurController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
