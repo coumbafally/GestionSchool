@@ -16,7 +16,7 @@ class Eleve extends Model
         return $this->belongsTo(Classe::class);
     }
     public function tuteur() {
-        return $this->hasOne(ParentModel::class);
+        return $this->hasOne(Tuteur::class);
     }
     public function documents() {
         return $this->hasMany(Document::class);

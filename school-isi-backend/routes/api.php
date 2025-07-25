@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Admin\ClasseController; 
-
+use App\Http\Controllers\Api\Admin\EnseignantController;
+use App\Http\Controllers\Api\Admin\MatiereController;
+use App\Http\Controllers\Api\Admin\MatiereClasseEnseignantController;
 
 Route::prefix('auth')->group(function () {
     
@@ -27,4 +29,7 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
    // !Route::apiResource('classes', ClasseController::class);
     
     // Vous ajouterez les autres routes admin ici...
+    Route::apiResource('enseignants', EnseignantController::class);
+    Route::apiResource('matieres', MatiereController::class);
+    Route::apiResource('affectations', MatiereClasseEnseignantController::class);
 });
