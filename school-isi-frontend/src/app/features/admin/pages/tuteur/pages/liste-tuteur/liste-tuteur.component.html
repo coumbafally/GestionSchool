@@ -1,0 +1,23 @@
+
+<table>
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th>Téléphone</th>
+        <th>Élève</th>
+        <th>User</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tuteur of tuteurs">
+        <td>{{ tuteur.id }}</td>
+        <td>{{ tuteur.numero_tel }}</td>
+        <td>{{ tuteur.eleve?.nom }}</td>
+        <td>{{ tuteur.user?.nom }} {{ tuteur.user?.prenom }}</td>
+        <td>
+            <button (click)="deleteTuteur(tuteur.id!)">Supprimer</button>
+        </td>
+        </tr>
+    </tbody>
+</table>

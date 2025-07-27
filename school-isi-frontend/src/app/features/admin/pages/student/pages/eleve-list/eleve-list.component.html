@@ -1,0 +1,35 @@
+
+<div class="container mt-4">
+    <h2>Liste des élèves</h2>
+
+    <div class="mb-3">
+        <input type="text" placeholder="Filtrer par niveau (ex: L1)" [(ngModel)]="niveau" />
+        <button class="btn btn-primary btn-sm" (click)="getByNiveau()">Chercher par niveau</button>
+    </div>
+
+    <div class="mb-3">
+        <input type="number" placeholder="ID de la classe" [(ngModel)]="classeId" />
+        <button class="btn btn-secondary btn-sm" (click)="getByClasse()">Chercher par classe</button>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Classe</th>
+            <th>Identifiant</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let eleve of eleves">
+            <td>{{ eleve.id }}</td>
+            <td>{{ eleve.user?.nom }}</td>
+            <td>{{ eleve.user?.prenom }}</td>
+            <td>{{ eleve.classe?.nom }}</td>
+            <td>{{ eleve.identifiant_eleve }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

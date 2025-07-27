@@ -1,0 +1,106 @@
+
+<div class="container mt-4">
+    <h2 class="mb-4">{{ isEditMode ? 'Modifier' : 'Créer' }} un élève</h2>
+
+    <form (ngSubmit)="onSubmit()">
+        <!-- Utilisateur -->
+        <div class="mb-3">
+        <label for="user_id" class="form-label">Utilisateur</label>
+        <select
+            id="user_id"
+            class="form-select"
+            [(ngModel)]="eleve.user_id"
+            name="user_id"
+            required
+        >
+            <option value="" disabled selected>-- Sélectionner un utilisateur --</option>
+            <option *ngFor="let user of users" [value]="user.id">
+            {{ user.nom }} {{ user.prenom }} ({{ user.email }})
+            </option>
+        </select>
+        </div>
+
+        <!-- Classe -->
+        <div class="mb-3">
+        <label for="classe_id" class="form-label">Classe</label>
+        <select
+            id="classe_id"
+            class="form-select"
+            [(ngModel)]="eleve.classe_id"
+            name="classe_id"
+            required
+        >
+            <option value="" disabled selected>-- Sélectionner une classe --</option>
+            <option *ngFor="let classe of classes" [value]="classe.id">
+            {{ classe.nom }} ({{ classe.niveau }})
+            </option>
+        </select>
+        </div>
+
+        <!-- Date de naissance -->
+        <div class="mb-3">
+        <label for="date_naissance" class="form-label">Date de naissance</label>
+        <input
+            type="date"
+            class="form-control"
+            id="date_naissance"
+            [(ngModel)]="eleve.date_naissance"
+            name="date_naissance"
+            required
+            placeholder="JJ/MM/AAAA"
+        />
+        </div>
+
+        <!-- Lieu de naissance -->
+        <div class="mb-3">
+        <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
+        <input
+            type="text"
+            class="form-control"
+            id="lieu_naissance"
+            [(ngModel)]="eleve.lieu_naissance"
+            name="lieu_naissance"
+            required
+            placeholder="ex : Dakar"
+        />
+        </div>
+
+        <!-- Adresse -->
+        <div class="mb-3">
+        <label for="adresse" class="form-label">Adresse</label>
+        <input
+            type="text"
+            class="form-control"
+            id="adresse"
+            [(ngModel)]="eleve.adresse"
+            name="adresse"
+            required
+            placeholder="ex : Cité Keur Gorgui"
+        />
+        </div>
+
+        <!-- Identifiant élève -->
+        <div class="mb-3">
+        <label for="identifiant_eleve" class="form-label">Identifiant élève</label>
+        <input
+            type="text"
+            class="form-control"
+            id="identifiant_eleve"
+            [(ngModel)]="eleve.identifiant_eleve"
+            name="identifiant_eleve"
+            required
+            placeholder="ex : ISI-2025-001"
+        />
+        </div>
+
+        <!-- Boutons -->
+        <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" (click)="router.navigate(['/eleves'])">
+            Retour
+        </button>
+        <button type="submit" class="btn btn-success">
+            {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+        </button>
+        </div>
+    </form>
+</div>
