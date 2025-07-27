@@ -1,14 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\USER\\source\\repos\\GestionSchool\\",
+  "WorkspaceRootPath": "C:\\laragon\\www\\GestionSchool_1\\GestionSchool\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\USER\\source\\repos\\GestionSchool\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\laragon\\www\\GestionSchool_1\\GestionSchool\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\USER\\source\\repos\\GestionSchool\\isi-school-frontend\\src\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:isi-school-frontend\\src\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\USER\\source\\repos\\GestionSchool\\isi-school-frontend\\src\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,19 +41,19 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": ".gitignore",
-              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\GestionSchool\\.gitignore",
+              "DocumentMoniker": "C:\\laragon\\www\\GestionSchool_1\\GestionSchool\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
-              "ToolTip": "C:\\Users\\USER\\source\\repos\\GestionSchool\\.gitignore",
+              "ToolTip": "C:\\laragon\\www\\GestionSchool_1\\GestionSchool\\.gitignore",
               "RelativeToolTip": ".gitignore",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
@@ -66,9 +65,9 @@
               "DocumentIndex": 1,
               "Title": "index.html",
               "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\GestionSchool\\isi-school-frontend\\src\\index.html",
-              "RelativeDocumentMoniker": "isi-school-frontend\\src\\index.html",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Users\\USER\\source\\repos\\GestionSchool\\isi-school-frontend\\src\\index.html",
               "ToolTip": "C:\\Users\\USER\\source\\repos\\GestionSchool\\isi-school-frontend\\src\\index.html",
-              "RelativeToolTip": "isi-school-frontend\\src\\index.html",
+              "RelativeToolTip": "..\\..\\..\\..\\Users\\USER\\source\\repos\\GestionSchool\\isi-school-frontend\\src\\index.html",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-07-19T00:59:50.45Z"
