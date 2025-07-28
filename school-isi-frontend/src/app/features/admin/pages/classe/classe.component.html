@@ -1,0 +1,77 @@
+<div class="management-container">
+  <h2 class="title">Gestion des Classes</h2>
+
+  <!-- Affichage des messages d'erreur globaux -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Conteneur pour le formulaire -->
+  <div class="form-card">
+    <h3>{{ isEditing ? 'Modifier la Classe' : 'Ajouter une nouvelle Classe' }}</h3>
+    
+    <!-- Le formulaire est lié au 'classeForm' et appelle 'onSubmit()' -->
+    <form [formGroup]="classeForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="nom">Nom de la classe</label>
+        <input id="nom" type="text" formControlName="nom" placeholder="Ex: Seconde A">
+        <!-- Messages de validation pour le champ 'nom' -->
+        <div *ngIf="classeForm.get('nom')?.touched && classeForm.get('nom')?.invalid" class="validation-error">
+          <span *ngIf="classeForm.get('nom')?.hasError('required')">Le nom est requis.</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="niveau">Niveau</label>
+        <input id="niveau" type="text" formControlName="niveau" placeholder="Ex: Seconde">
+        <!-- Messages de validation pour le champ 'niveau' -->
+        <div *ngIf="classeForm.get('niveau')?.touched && classeForm.get('niveau')?.invalid" class="validation-error">
+          <span *ngIf="classeForm.get('niveau')?.hasError('required')">Le niveau est requis.</span>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" [disabled]="classeForm.invalid" class="btn btn-primary">
+          {{ isEditing ? 'Mettre à jour' : 'Ajouter la Classe' }}
+        </button>
+        <button type="button" (click)="resetForm()" *ngIf="isEditing" class="btn btn-secondary">
+          Annuler
+        </button>
+      </div>
+      
+    </form>
+  </div>
+
+  <!-- Conteneur pour la table des classes -->
+  <div class="table-container">
+    <h3>Liste des Classes Existantes</h3>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Niveau</th>
+          <th class="actions-column">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Boucle sur le tableau 'classes' pour afficher chaque ligne -->
+        <tr *ngFor="let classe of classes">
+          <td>{{ classe.id }}</td>
+          <td>{{ classe.nom }}</td>
+          <td>{{ classe.niveau }}</td>
+          <td class="actions-column">
+            <button (click)="editClasse(classe)" class="btn btn-edit">Modifier</button>
+            <button (click)="deleteClasse(classe.id)" class="btn btn-delete">Supprimer</button>
+          </td>
+        </tr>
+        <!-- Message si le tableau est vide -->
+        <tr *ngIf="classes.length === 0">
+          <td colspan="4" class="empty-table">Aucune classe n'a encore été créée.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

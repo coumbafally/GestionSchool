@@ -4,8 +4,6 @@ import { roleGuard } from './core/guards/role.guard';
 
 
 
-
-
 export const routes: Routes = [
   
   {
@@ -53,6 +51,8 @@ export const routes: Routes = [
     redirectTo: 'auth/login',
     pathMatch: 'full'
   },
+
+
   {
     path: '**', // Pour toute autre URL non trouvée
     redirectTo: 'auth/login'
