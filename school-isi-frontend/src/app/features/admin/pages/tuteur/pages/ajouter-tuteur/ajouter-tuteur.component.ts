@@ -1,15 +1,25 @@
 import { Component , OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,  Validators } from '@angular/forms';
 import { TuteurService } from '../../../../services/tuteur.service';
 import { EleveService } from '../../../../services/eleve.service';
 import { Eleve } from '../../../../../../core/models/eleve.model';
-
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AdminModule } from "../../../../admin.module";
+import { RouterModule } from '@angular/router'; 
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-ajouter-tuteur',
-  standalone: false,
+  standalone: true,
   templateUrl: './ajouter-tuteur.component.html',
-  styleUrl: './ajouter-tuteur.component.css'
+  styleUrl: './ajouter-tuteur.component.css',
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+  ]
 })
 
 export class AjouterTuteurComponent implements OnInit {

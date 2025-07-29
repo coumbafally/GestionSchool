@@ -39,7 +39,7 @@ export const routes: Routes = [
     loadChildren: () => import('./features/tuteur/tuteur.module').then(m => m.TuteurModule)
   },
 
- 
+
   {
     path: 'student',
     canActivate: [authGuard, roleGuard],
@@ -54,7 +54,7 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**', // Pour toute autre URL non trouvée
+    path: '**', 
     redirectTo: 'auth/login'
   }
 ];

@@ -13,6 +13,7 @@ return array(
     'App\\Http\\Controllers\\Admin\\MatiereClasseEnseignantController' => $baseDir . '/app/Http/Controllers/Admin/MatiereClasseEnseignantController.php',
     'App\\Http\\Controllers\\Admin\\MatiereController' => $baseDir . '/app/Http/Controllers/Admin/MatiereController.php',
     'App\\Http\\Controllers\\Admin\\TuteurController' => $baseDir . '/app/Http/Controllers/Admin/TuteurController.php',
+    'App\\Http\\Controllers\\Admin\\UserController' => $baseDir . '/app/Http/Controllers/Admin/UserController.php',
     'App\\Http\\Controllers\\Api\\Admin\\EnseignantController' => $baseDir . '/app/Http/Controllers/Api/Admin/EnseignantController.php',
     'App\\Http\\Controllers\\Api\\Admin\\MatiereClasseEnseignantController' => $baseDir . '/app/Http/Controllers/Api/Admin/MatiereClasseEnseignantController.php',
     'App\\Http\\Controllers\\Api\\Admin\\MatiereController' => $baseDir . '/app/Http/Controllers/Api/Admin/MatiereController.php',

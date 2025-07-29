@@ -8,7 +8,8 @@ import { TuteurRoutingModule } from './tuteur-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    TuteurRoutingModule
+    TuteurRoutingModule,
+    
   ]
 })
 export class TuteurModule { }

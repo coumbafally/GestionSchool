@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Eleve;
 use App\Models\Classe;
 use App\Models\User;
+use App\Models\Document;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -47,35 +49,101 @@ class EleveController extends Controller
     }
 
     // Créer un élève
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'classe_id' => 'required|exists:classes,id',
-            'date_naissance' => 'required|date',
-            'lieu_naissance' => 'required|string',
-            'adresse' => 'required|string',
-            'identifiant_eleve' => 'required|unique:eleves'
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'classe_id' => 'required|exists:classes,id',
+        'date_naissance' => 'required|date',
+        'lieu_naissance' => 'required|string',
+        'adresse' => 'required|string',
+        'justificatif' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048'
+    ]);
 
-        return Eleve::create($validated);
+    // Génération d’identifiant automatique
+    $identifiant = 'ISI-' . now()->year . '-' . rand(100, 999);
+
+
+    $eleve = Eleve::create([
+        'user_id' => $request->user_id,
+        'classe_id' => $request->classe_id,
+        'date_naissance' => $request->date_naissance,
+        'lieu_naissance' => $request->lieu_naissance,
+        'adresse' => $request->adresse,
+        'identifiant_eleve' => $identifiant,
+    ]);
+
+    // Gestion du fichier justificatif
+    if ($request->hasFile('justificatif')) {
+        $file = $request->file('justificatif');
+        $path = $file->store('justificatifs', 'public');
+
+        $eleve->documents()->create([
+            'type_document' => 'Justificatif',
+            'chemin_fichier' => $path,
+        ]);
+    }
+
+    return response()->json(['message' => 'Élève créé avec succès'], 201);
+}
+
+
+
+    // Afficher un élève avec ses documents
+    public function showWithDocuments($id)
+    {
+        $eleve = Eleve::with(['user', 'classe', 'documents'])->findOrFail($id);
+        return response()->json($eleve);
     }
 
     // Afficher un élève
     public function show($id)
     {
-        return Eleve::with(['user', 'classe'])->findOrFail($id);
+        return Eleve::with(['user', 'classe', 'documents'])->findOrFail($id);
     }
 
     // Modifier un élève
-    public function update(Request $request, $id)
-    {
-        $eleve = Eleve::findOrFail($id);
+public function update(Request $request, $id)
+{
+    $eleve = Eleve::findOrFail($id);
 
-        $eleve->update($request->all());
+    // 🔁 Mise à jour des champs élève
+    $eleve->update([
+        'classe_id' => $request->classe_id,
+        'date_naissance' => $request->date_naissance,
+        'lieu_naissance' => $request->lieu_naissance,
+        'adresse' => $request->adresse
+    ]);
 
-        return response()->json(['message' => 'Élève mis à jour', 'data' => $eleve]);
+    // 🔁 Mise à jour des champs utilisateur liés
+    if ($request->filled('nom') || $request->filled('prenom') || $request->filled('email')) {
+        $user = $eleve->user;
+        if ($request->filled('nom')) $user->nom = $request->nom;
+        if ($request->filled('prenom')) $user->prenom = $request->prenom;
+        if ($request->filled('email')) $user->email = $request->email;
+        $user->save();
     }
+
+    // 🔁 Justificatif (si changé)
+    if ($request->hasFile('justificatif')) {
+        $ancienDoc = Document::where('eleve_id', $eleve->id)->first();
+        if ($ancienDoc && Storage::disk('public')->exists($ancienDoc->chemin_fichier)) {
+            Storage::disk('public')->delete($ancienDoc->chemin_fichier);
+            $ancienDoc->delete();
+        }
+
+        $path = $request->file('justificatif')->store('justificatifs', 'public');
+
+        Document::create([
+            'eleve_id' => $eleve->id,
+            'type_document' => 'Justificatif',
+            'chemin_fichier' => $path,
+        ]);
+    }
+
+    return response()->json(['message' => 'Élève mis à jour', 'data' => $eleve]);
+}
+
 
     // Supprimer
     public function destroy($id)
@@ -84,4 +152,6 @@ class EleveController extends Controller
 
         return response()->json(['message' => 'Élève supprimé']);
     }
+
+    
 }

@@ -574,6 +574,7 @@ class ComposerStaticInitc9479c9eb92bb711f3093177c7f447cf
         'App\\Http\\Controllers\\Admin\\MatiereClasseEnseignantController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/MatiereClasseEnseignantController.php',
         'App\\Http\\Controllers\\Admin\\MatiereController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/MatiereController.php',
         'App\\Http\\Controllers\\Admin\\TuteurController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TuteurController.php',
+        'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
         'App\\Http\\Controllers\\Api\\Admin\\EnseignantController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Admin/EnseignantController.php',
         'App\\Http\\Controllers\\Api\\Admin\\MatiereClasseEnseignantController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Admin/MatiereClasseEnseignantController.php',
         'App\\Http\\Controllers\\Api\\Admin\\MatiereController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/Admin/MatiereController.php',

@@ -6,8 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Eleve extends Model
 {
-     use HasFactory;
-    protected $fillable = ['user_id', 'classe_id', 'date_naissance', 'lieu_naissance', 'adresse', 'identifiant_eleve'];
+    use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'classe_id',
+        'date_naissance',
+        'lieu_naissance',
+        'adresse',
+        'identifiant_eleve'
+    ];
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -20,7 +27,9 @@ class Eleve extends Model
     }
     public function documents() {
         return $this->hasMany(Document::class);
+        
     }
+    
     public function notes() {
         return $this->hasMany(Note::class);
     }

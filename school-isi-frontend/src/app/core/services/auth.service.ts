@@ -9,15 +9,17 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api/auth';
+
   private readonly TOKEN_NAME = 'access_token';
- private userSubject = new BehaviorSubject<any | null>(null);
+  
+  private userSubject = new BehaviorSubject<any | null>(null);
   public user$ = this.userSubject.asObservable(); 
 
   constructor(private http: HttpClient, private router: Router) {
       this.loadInitialUser();
-   }
+  }
 
-   private loadInitialUser(): void {
+  private loadInitialUser(): void {
     const user = this.getUser();
     if (user) {
       this.userSubject.next(user);
@@ -29,7 +31,7 @@ export class AuthService {
         const user = (response as any).user;
         this.setToken((response as any).access_token);
         this.setUser(user);
-        this.userSubject.next(user); // On met à jour le BehaviorSubject
+        this.userSubject.next(user); 
       })
     );
   }
@@ -107,7 +109,10 @@ public getUserRole(): string | null {
   // Si on ne trouve rien, on retourne null
   return null;
 }
-  isAuthenticated(): boolean {
-    return this.getToken() !== null;
-  }
+isAuthenticated(): boolean {
+  const token = this.getToken();
+  console.log('isAuthenticated check: token =', token);
+  return token !== null;
+}
+
 }
