@@ -1,0 +1,15 @@
+
+.sidebar {
+  background-color: #1e293b;
+  color: white;
+}
+.nav-link.active {
+  background-color: #2563eb;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.nav-link:hover {
+  background-color: #334155;
+  color: white;
+}

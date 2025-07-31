@@ -1,0 +1,119 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"></div>
+    <h2 id="ti">ISI SCHOOL</h2>
+ 
+  </div>
+  <nav class="nav flex-column">
+    <a class="nav-link " routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link active" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link " routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
+    <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
+    <a class="nav-link" routerLink="/admin/login"><i class="bi bi-clipboard-data"></i> Deconnexion</a>
+  </nav>
+</aside>
+
+
+<main class="main-content">
+  <div class="container py-4">
+    <div class="card shadow p-4 mb-4">
+      <h2 class="text-primary mb-4">{{ isEditMode ? 'Modifier' : 'Créer' }} un enseignant</h2>
+
+      <!-- Formulaire utilisateur (si non inscrit) -->
+      <form (ngSubmit)="onSubmit()" class="row g-3">
+        <ng-container *ngIf="!enseignant.user_id">
+          <div class="col-md-4">
+            <label>Nom</label>
+            <input type="text" class="form-control" [(ngModel)]="newUser.nom" name="nom" required />
+          </div>
+          <div class="col-md-4">
+            <label>Prénom</label>
+            <input type="text" class="form-control" [(ngModel)]="newUser.prenom" name="prenom" required />
+          </div>
+          <div class="col-md-4">
+            <label>Email</label>
+            <input type="email" class="form-control" [(ngModel)]="newUser.email" name="email" required />
+          </div>
+          <div class="col-12 text-end">
+            <button type="button" class="btn btn-outline-primary" (click)="onRegister()">
+              <i class="bi bi-person-plus"></i> Créer l'utilisateur
+            </button>
+          </div>
+        </ng-container>
+
+        <!-- Formulaire enseignant -->
+        <ng-container *ngIf="enseignant.user_id && enseignant.user">
+          <div class="col-md-4">
+            <label>Nom</label>
+            <input type="text" class="form-control" [(ngModel)]="enseignant.user.nom" name="nom" required />
+          </div>
+          <div class="col-md-4">
+            <label>Prénom</label>
+            <input type="text" class="form-control" [(ngModel)]="enseignant.user.prenom" name="prenom" required />
+          </div>
+          <div class="col-md-4">
+            <label>Email</label>
+            <input type="email" class="form-control" [(ngModel)]="enseignant.user.email" name="email" required />
+          </div>
+          <div class="col-md-6">
+            <label>Matricule</label>
+            <input type="text" class="form-control" [(ngModel)]="enseignant.matricule" name="matricule" required />
+          </div>
+          <div class="col-12 text-end">
+            <button type="submit" class="btn btn-success mt-2">
+              {{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}
+            </button>
+          </div>
+        </ng-container>
+      </form>
+
+      <!-- Erreurs -->
+      <div *ngIf="validationErrors" class="alert alert-danger mt-3">
+        <ul>
+          <li *ngFor="let err of validationErrors | keyvalue">
+            {{ err.key }} : {{ err.value }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Liste des enseignants -->
+    <div class="card shadow p-4">
+      <h4 class="text-dark mb-1">Liste des enseignants enregistrés</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+          <thead class="table-primary">
+            <tr>
+              <th>#</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Matricule</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ens of enseignants; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ ens.user?.nom }}</td>
+              <td>{{ ens.user?.prenom }}</td>
+              <td>{{ ens.user?.email }}</td>
+              <td>{{ ens.matricule }}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary me-2" (click)="editEnseignant(ens.id)">
+                  <i class="bi bi-pencil"></i> Modifier
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteEnseignant(ens.id)">
+                  <i class="bi bi-trash"></i> Supprimer
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
