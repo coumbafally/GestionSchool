@@ -54,10 +54,23 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
     });
 
     // Enseignants
-    Route::apiResource('enseignants', EnseignantController::class);
+    Route::prefix('enseignants')->group(function () {
+        Route::get('/', [EnseignantController::class, 'index']);
+        Route::post('/', [EnseignantController::class, 'store']);
+        Route::get('/{id}', [EnseignantController::class, 'show']);
+        Route::put('/{id}', [EnseignantController::class, 'update']);
+        Route::delete('/{id}', [EnseignantController::class, 'destroy']);
+    });
+   
 
     // Matières
-    Route::apiResource('matieres', MatiereController::class);
+    Route::prefix('matieres')->group(function () {
+        Route::get('/', [MatiereController::class, 'index']);
+        Route::post('/', [MatiereController::class, 'store']);
+        Route::get('/{id}', [MatiereController::class, 'show']);
+        Route::put('/{id}', [MatiereController::class, 'update']);
+        Route::delete('/{id}', [MatiereController::class, 'destroy']);
+    });
 
     // Affectation Matières/Classes/Enseignants
     Route::apiResource('affectations', MatiereClasseEnseignantController::class);
