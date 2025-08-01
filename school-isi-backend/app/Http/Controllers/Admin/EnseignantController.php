@@ -72,3 +72,5 @@ class EnseignantController extends Controller
         return response()->json(['message' => 'Enseignant supprimé']);
     }
 }
+
+
