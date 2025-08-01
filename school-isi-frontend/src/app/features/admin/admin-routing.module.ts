@@ -7,6 +7,7 @@ import { authGuard } from '../../core/guards/auth.guard';
 import { EleveFormComponent } from './pages/student/pages/eleve-form/eleve-form.component';
 import { EleveDetailsComponent } from './pages/student/pages/eleve-details/eleve-details.component';
 import { EnseignantFormComponent } from './pages/teacher/pages/enseignant-form/enseignant-form.component';
+import { MatiereFormComponent } from './pages/matiere/pages/matiere-form/matiere-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -20,6 +21,9 @@ const routes: Routes = [
   { path: 'enseignants/create', component: EnseignantFormComponent, canActivate: [authGuard] },
   { path: 'enseignants/edit/:id', component: EnseignantFormComponent, canActivate: [authGuard] },
   { path: 'enseignants/list', component: EnseignantFormComponent, canActivate: [authGuard] },
+  { path: 'matieres', component: MatiereFormComponent, canActivate: [authGuard] },
+  { path: 'matieres/create', component: MatiereFormComponent, canActivate: [authGuard] },
+  { path: 'matieres/edit/:id', component: MatiereFormComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

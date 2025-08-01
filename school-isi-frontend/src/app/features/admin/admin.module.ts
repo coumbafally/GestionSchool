@@ -10,6 +10,7 @@ import { ListeNoteComponent } from './pages/note/pages/liste-note/liste-note.com
 import { ListeTuteurComponent } from './pages/tuteur/pages/liste-tuteur/liste-tuteur.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TeacherModule } from '../teacher/teacher.module';
+import { MatiereFormComponent } from './pages/matiere/pages/matiere-form/matiere-form.component';
 
 
 @NgModule({
@@ -26,8 +27,8 @@ import { TeacherModule } from '../teacher/teacher.module';
     AdminRoutingModule,
     EleveListComponent,
     HttpClientModule,
-    TeacherModule
-    
+    TeacherModule,
+    MatiereFormComponent    
   ]
 })
 export class AdminModule {}
