@@ -1,26 +1,21 @@
+// Fichier: client/src/app/features/admin/admin.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
-//import { NavbarComponent } from './components/navbar/navbar.component';
-//import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
+
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { ClasseComponent } from './pages/classe/classe.component';
-import { ClasseService } from './services/classe.service';
-
-
 @NgModule({
   declarations: [
-    //NavbarComponent,
-   //AdminDashboardComponent,
-    ClasseComponent
+
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
-  ],
-
-   providers: [
-    ClasseService
+    ReactiveFormsModule,
+    AdminRoutingModule,
+    NavbarComponent,
+    ClasseComponent
   ]
 })
 export class AdminModule { }

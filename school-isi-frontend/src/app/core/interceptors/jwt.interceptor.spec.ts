@@ -1,17 +1,36 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpInterceptorFn } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
-import { JwtInterceptor } from './jwt.interceptor';
+@Injectable()
+export class JwtInterceptor implements HttpInterceptor {
 
-describe('jwtInterceptor', () => {
-  const interceptor: HttpInterceptorFn = (req, next) => 
-    TestBed.runInInjectionContext(() => jwtInterceptor(req, next));
+  constructor(private authService: AuthService) {}
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-  });
+  /**
+   * Cette méthode est appelée automatiquement pour chaque requête HTTP sortante.
+   * @param request 
+   * @param next 
+   */
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    const token = this.authService.getToken();
 
-  it('should be created', () => {
-    expect(interceptor).toBeTruthy();
-  });
-});
+    if (token) {
+      const clonedRequest = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      return next.handle(clonedRequest);
+    }
+
+    return next.handle(request);
+  }
+}

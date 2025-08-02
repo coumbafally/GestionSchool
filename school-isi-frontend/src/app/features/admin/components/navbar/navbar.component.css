@@ -1,15 +1,32 @@
+/* Le conteneur principal devient un conteneur Flexbox */
+.admin-layout-container {
+  display: flex;
+  height: 100vh; /* Prend 100% de la hauteur de la vue */
+}
 
+/* Votre sidebar (menu) */
 .sidebar {
   background-color: #083d77;
   color: #fff;
   padding: 2rem 1rem;
-  width: 260px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
+  width: 260px; /* Largeur fixe, c'est parfait */
+  height: 100vh; /* Prend toute la hauteur */
+  /* --- LA CORRECTION LA PLUS IMPORTANTE --- */
+  /* On supprime position: fixed, top: 0, et left: 0 */
+  /* Il fait maintenant partie du flux normal de la page */
+  flex-shrink: 0; /* Empêche le menu de rétrécir */
 }
 
+/* --- NOUVEAU STYLE POUR LA ZONE DE CONTENU --- */
+.main-content {
+  flex-grow: 1; /* Fait en sorte que cette zone prenne tout l'espace restant */
+  padding: 2rem; /* Ajoute de l'air autour du contenu */
+  overflow-y: auto; /* Ajoute une barre de défilement si le contenu est trop long */
+  background-color: #f4f7fa; /* Une couleur de fond douce pour le contenu */
+}
+
+
+/* -- Vos styles existants pour le profil et le menu (ils sont bons) -- */
 .profile {
   text-align: center;
   margin-bottom: 2rem;
@@ -29,11 +46,13 @@
 }
 
 .menu li {
-  padding: 12px 0;
+  padding: 12px 1rem; /* Ajout d'une marge pour l'alignement */
   font-size: 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
+  border-radius: 6px; /* Bords arrondis pour un look moderne */
+  margin-bottom: 0.5rem; /* Espace entre les items */
 }
 
 .menu li i {
@@ -41,8 +60,18 @@
   font-size: 18px;
 }
 
-.menu li:hover {
+.menu li:hover, .menu li.active-link { /* 'active-link' est la classe de routerLinkActive */
   background-color: rgba(255, 255, 255, 0.2);
-  padding-left: 8px;
   transition: 0.3s ease;
+}
+
+.menu button {
+    background: none;
+    border: none;
+    color: white;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
 }

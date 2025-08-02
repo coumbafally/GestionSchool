@@ -15,11 +15,12 @@ export const routes: Routes = [
 
   
   {
-    path: 'admin',
-    canActivate: [authGuard, roleGuard],
-    data: { role: 'admin' },
-    loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule)
-  },
+  path: 'admin',
+  canActivate: [authGuard, roleGuard],
+  data: { role: 'admin' },
+  // On utilise la syntaxe pour charger un NgModule
+  loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule)
+},
 
   
   {
