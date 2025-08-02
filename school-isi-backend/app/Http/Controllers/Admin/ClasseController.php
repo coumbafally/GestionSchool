@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Classe;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Validator;
 
 class ClasseController extends Controller
