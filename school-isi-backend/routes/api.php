@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\MatiereController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Teacher\NoteController;
 use App\Http\Controllers\Admin\MatiereClasseEnseignantController;
+use App\Http\Controllers\Admin\DashboardController;
 
 // Enregistrement des middlewares personnalisés
 app('router')->aliasMiddleware('can:is-admin', \App\Http\Middleware\IsAdmin::class);
@@ -75,6 +76,7 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
     // Affectation Matières/Classes/Enseignants
     Route::apiResource('affectations', MatiereClasseEnseignantController::class);
 
+
     // Tuteurs
 
     Route::prefix('tuteurs')->group(function () {
@@ -94,6 +96,8 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
     //document éléve
     Route::get('/admin/eleves/{id}/documents', [EleveController::class, 'showWithDocuments']);
 
+    // Dashboard stats
+    Route::get('/dashboard', [DashboardController::class, 'stats']);
 });
 
 /*

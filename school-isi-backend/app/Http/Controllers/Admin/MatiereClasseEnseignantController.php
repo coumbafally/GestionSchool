@@ -11,7 +11,7 @@ class MatiereClasseEnseignantController extends Controller
     public function index()
     {
         return response()->json(
-            MatiereClasseEnseignant::with(['classe', 'matiere', 'enseignant'])->get()
+            MatiereClasseEnseignant::with(['classe', 'matiere', 'enseignant.user'])->get()
         );
     }
 
