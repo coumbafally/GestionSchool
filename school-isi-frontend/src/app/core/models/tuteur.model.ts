@@ -14,5 +14,7 @@ export interface Tuteur {
     eleve?: {
         id: number;
         nom: string;
+        prenom : String
+
     };
 }

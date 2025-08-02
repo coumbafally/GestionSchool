@@ -189,13 +189,13 @@ main {
       border-radius: 10px;
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
       overflow:hidden;
-      
+      height: 10%;
     }
 
     .table-responsive {
       border-radius: 10px;
       overflow: hidden;
-      max-height: 500px;
+      max-height: 400px;
       overflow-y: auto;
       overflow-x: auto;
       position: fixed;

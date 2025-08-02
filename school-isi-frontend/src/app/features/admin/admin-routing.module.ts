@@ -10,11 +10,18 @@ import { EleveDetailsComponent } from './pages/student/pages/eleve-details/eleve
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: AdminDashboardComponent, canActivate: [authGuard] },
+
+  //éléves
   { path: 'eleve', component: EleveListComponent, canActivate: [authGuard] },
-  { path: 'tuteurs', component: ListeTuteurComponent, canActivate: [authGuard] },
   { path: 'eleve/create', component: EleveFormComponent, canActivate: [authGuard] },
   { path: 'eleve/edit/:id', component: EleveFormComponent , canActivate: [authGuard]},
-  { path: 'eleve/:id', component: EleveDetailsComponent, canActivate: [authGuard] }
+  { path: 'eleve/:id', component: EleveDetailsComponent, canActivate: [authGuard] },
+
+  //tuteur
+  { path: 'tuteurs', component: ListeTuteurComponent, canActivate: [authGuard] },
+  { path: 'tuteurs/create', component: EleveFormComponent, canActivate: [authGuard] },
+  { path: 'tuteurs/edit/:id', component: EleveFormComponent , canActivate: [authGuard]},
+  { path: 'tuteurs/:id', component: EleveDetailsComponent, canActivate: [authGuard] },
   
 ];
 

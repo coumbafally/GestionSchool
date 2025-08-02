@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 
 class EleveController extends Controller
 {
-    // Lister tous les élèves
     public function index()
     {
         return Eleve::with(['user', 'classe'])->get();
@@ -32,7 +31,6 @@ class EleveController extends Controller
     }
 
 
-    // Afficher élèves par niveau (L1, L2, Master, etc.)
     public function parNiveau($niveau)
     {
         return Eleve::whereHas('classe', function ($query) use ($niveau) {
@@ -40,7 +38,6 @@ class EleveController extends Controller
         })->with(['user', 'classe'])->get();
     }
 
-    // Afficher élèves par classe (ex : L1 Génie Logiciel)
     public function parClasse($classeId)
     {
         return Eleve::where('classe_id', $classeId)
@@ -61,7 +58,7 @@ public function store(Request $request)
     ]);
 
     // Génération d’identifiant automatique
-    $identifiant = 'ISI-' . now()->year . '-' . rand(100, 999);
+    $identifiant = 'ISI-' . now()->year . '-' . rand(011, 1999);
 
 
     $eleve = Eleve::create([

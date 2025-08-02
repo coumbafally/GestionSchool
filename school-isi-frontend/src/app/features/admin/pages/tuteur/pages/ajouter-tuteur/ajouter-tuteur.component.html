@@ -1,5 +1,5 @@
-<!--
-<form [formGroup]="formTuteur" (ngSubmit)="onSubmit()">
+
+<form (ngSubmit)="onSubmit()">
     <label>Nom</label>
     <input type="text" formControlName="nom" placeholder="Entrez le nom" />
 
@@ -23,4 +23,4 @@
     <button type="submit" [disabled]="formTuteur.invalid">Enregistrer</button>
     <button type="reset" (click)="formTuteur.reset()">Annuler</button>
 
-</form> --->
+</form>

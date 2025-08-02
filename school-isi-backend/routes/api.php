@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\MatiereClasseEnseignantController;
 
 // Enregistrement des middlewares personnalisés
 app('router')->aliasMiddleware('can:is-admin', \App\Http\Middleware\IsAdmin::class);
-app('router')->aliasMiddleware('can:is-eleve', \App\Http\Middleware\IsEleve::class); // pour plus tard
+app('router')->aliasMiddleware('can:is-eleve', \App\Http\Middleware\IsEleve::class);
 
 /*
 |--------------------------------------------------------------------------

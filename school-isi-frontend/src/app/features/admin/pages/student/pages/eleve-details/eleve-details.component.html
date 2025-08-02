@@ -27,30 +27,47 @@
     </div>
 
     <div class="card shadow p-4">
-      <p><strong>Prénom :</strong> {{ eleve?.user?.prenom }}</p>
-      <p><strong>Nom :</strong> {{ eleve?.user?.nom }}</p>
-      <p><strong>Email :</strong> {{ eleve?.user?.email }}</p>
+      <div class="row">
+        <!-- Colonne utilisateur -->
+        <div class="col-md-6 border-end">
+          <h5 class="mb-3">Informations Utilisateur</h5>
+          <p><strong>Prénom :</strong> {{ eleve?.user?.prenom }}</p>
+          <p><strong>Nom :</strong> {{ eleve?.user?.nom }}</p>
+          <p><strong>Email :</strong> {{ eleve?.user?.email }}</p>
+        </div>
 
-      <p><strong>Classe :</strong> {{ eleve?.classe?.nom }} ({{ eleve?.classe?.niveau }})</p>
-      <p><strong>Identifiant :</strong> {{ eleve?.identifiant_eleve }}</p>
+        <!-- Colonne élève -->
+        <div class="col-md-6">
+          <h5 class="mb-3">Informations Élève</h5>
+          <p><strong>Classe :</strong> {{ eleve?.classe?.nom }} ({{ eleve?.classe?.niveau }})</p>
+          <p><strong>Identifiant :</strong> {{ eleve?.identifiant_eleve }}</p>
+          <p><strong>Date de naissance :</strong> {{ eleve?.date_naissance }}</p>
+          <p><strong>Lieu de naissance :</strong> {{ eleve?.lieu_naissance }}</p>
+          <p><strong>Adresse :</strong> {{ eleve?.adresse }}</p>
+        </div>
+      </div>
 
-      <p><strong>Date de naissance :</strong> {{ eleve?.date_naissance }}</p>
-      <p><strong>Lieu de naissance :</strong> {{ eleve?.lieu_naissance }}</p>
-      <p><strong>Adresse :</strong> {{ eleve?.adresse }}</p>
+      <!-- Documents justificatifs -->
+      <div class="mt-4">
+        <h5>Documents Justificatifs</h5>
+        <ul *ngIf="eleve?.documents?.length > 0; else aucunDoc">
+          <li *ngFor="let doc of eleve?.documents">
+            <a [href]="'http://localhost:8000/storage/' + doc.chemin_fichier" target="_blank">
+              {{ doc.type_document }} - Télécharger
+            </a>
+          </li>
+        </ul>
+        <ng-template #aucunDoc>
+          <p class="text-muted">Aucun document disponible.</p>
+        </ng-template>
+      </div>
 
-      <p><strong>Documents Justificatifs :</strong></p>
-      <ul>
-        <li *ngFor="let doc of eleve?.documents">
-          <a [href]="'http://localhost:8000/storage/' + doc.chemin_fichier" target="_blank">
-            {{ doc.type_document }} - Télécharger
-          </a>
-        </li>
-      </ul>
-
-      <div class="page-title mt-4">
-        <a routerLink="/admin/eleve" class="btn-gradient">Retour</a>
+      <!-- Bouton retour -->
+      <div class="text-end mt-4">
+        <a routerLink="/admin/eleve" class="btn btn-secondary">Retour</a>
       </div>
     </div>
   </div>
 </main>
+
 

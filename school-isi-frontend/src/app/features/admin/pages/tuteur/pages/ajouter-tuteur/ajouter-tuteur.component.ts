@@ -12,14 +12,10 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-ajouter-tuteur',
-  standalone: true,
+  standalone: false,
   templateUrl: './ajouter-tuteur.component.html',
   styleUrl: './ajouter-tuteur.component.css',
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-  ]
+  
 })
 
 export class AjouterTuteurComponent implements OnInit {

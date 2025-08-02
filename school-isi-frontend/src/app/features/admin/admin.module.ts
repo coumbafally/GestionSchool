@@ -9,7 +9,7 @@ import { EleveListComponent } from './pages/student/pages/eleve-list/eleve-list.
 import { ListeNoteComponent } from './pages/note/pages/liste-note/liste-note.component';
 import { ListeTuteurComponent } from './pages/tuteur/pages/liste-tuteur/liste-tuteur.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     AdminRoutingModule,
     EleveListComponent,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ]
 })
 export class AdminModule {}
