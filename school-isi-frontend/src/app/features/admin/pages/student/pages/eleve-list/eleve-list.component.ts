@@ -22,7 +22,7 @@ import { RouterModule } from '@angular/router';
 export class EleveListComponent implements OnInit {
   eleves: Eleve[] = [];
   niveau = '';
-  classeId?: number;
+  classeNom?: '';
   documents: any[] = [];
 
 
@@ -54,8 +54,8 @@ export class EleveListComponent implements OnInit {
   }
 
   getByClasse(): void {
-    if (this.classeId) {
-      this.eleveService.getByClasse(this.classeId).subscribe(data => {
+    if (this.classeNom) {
+      this.eleveService.getByClasse(this.classeNom).subscribe(data => {
         this.eleves = data;
       });
     }

@@ -26,4 +26,10 @@ class BulletinController extends Controller
 
         return response()->json($bulletins);
     }
+    public function notes()
+    {
+        return $this->hasMany(Note::class, 'eleve_id', 'eleve_id')
+                    ->where('periode', $this->periode);
+    }
+
 }

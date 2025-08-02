@@ -35,7 +35,7 @@
   
   <div class="page-title">
       <h1></h1>
-      <a routerLink="/admin/tuteur/create" class="btn-gradient"><i class="bi bi-plus-circle"></i> Ajouter un tuteur</a>
+      <a routerLink="/admin/tuteurs/create" class="btn-gradient"><i class="bi bi-plus-circle"></i> Ajouter un tuteur</a>
   </div>
 
   <div class="card">
@@ -51,15 +51,15 @@
         </thead>
         <tbody>
             <tr *ngFor="let tuteur of tuteurs">
-                <td>{{ tuteur.user?.nom }} {{ tuteur.user?.prenom }}</td>
-                <td>{{ tuteur.numero_tel }}</td>
-                <td>{{ tuteur.eleve?.nom }} {{ tuteur.eleve?.prenom }}</td>
+              <td>{{ tuteur.user?.nom }} {{ tuteur.user?.prenom }}</td>
+              <td>{{ tuteur.numero_tel }}</td>
+              <td>{{ tuteur.eleve?.user?.prenom }} {{ tuteur.eleve?.user?.nom }}</td>
             <td>
             <div class="d-flex gap-2">
-              <a [routerLink]="['/admin/tuteur', tuteur.id]" title="Détails" class="btn btn-sm btn-primary">
+              <a [routerLink]="['/admin/tuteurs', tuteur.id]" title="Détails" class="btn btn-sm btn-primary">
                 <i class="bi bi-eye"></i>
               </a>
-              <a [routerLink]="['/admin/tuteur/edit', tuteur.id]" title="Modifier" class="btn btn-sm btn-warning text-white">
+              <a [routerLink]="['/admin/tuteurs/edit', tuteur.id]" title="Modifier" class="btn btn-sm btn-warning text-white">
                 <i class="bi bi-pencil"></i>
               </a>
               <button class="btn btn-sm btn-danger" (click)="deleteTuteur(tuteur.id!)" title="Supprimer">

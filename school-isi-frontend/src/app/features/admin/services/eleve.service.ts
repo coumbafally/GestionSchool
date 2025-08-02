@@ -25,8 +25,8 @@ export class EleveService {
         return this.http.get<any>(`${this.apiUrl}/${id}`);
     }
 
-    getByClasse(classeId: number): Observable<Eleve[]> {
-        return this.http.get<Eleve[]>(`${this.apiUrl}/classe/${classeId}`);
+    getByClasse(classeNom: string): Observable<Eleve[]> {
+        return this.http.get<Eleve[]>(`${this.apiUrl}/classe/${classeNom}`);
     }
 
     getByNiveau(niveau: string): Observable<Eleve[]> {

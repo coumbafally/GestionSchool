@@ -15,15 +15,19 @@ export class TuteurService {
     return this.http.get<Tuteur[]>(this.apiUrl);
   }
 
-  createTuteur(tuteur: Tuteur): Observable<Tuteur> {
+  getById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  create(tuteur: Tuteur): Observable<Tuteur> {
     return this.http.post<Tuteur>(this.apiUrl, tuteur);
   }
 
-  deleteTuteur(id: number): Observable<any> {
+  delete(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  updateTuteur(id: number, data: Partial<Tuteur>): Observable<Tuteur> {
+  update(id: number, data: Partial<Tuteur>): Observable<Tuteur> {
     return this.http.put<Tuteur>(`${this.apiUrl}/${id}`, data);
   }
 }

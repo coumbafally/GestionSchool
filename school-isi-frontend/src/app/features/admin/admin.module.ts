@@ -10,12 +10,15 @@ import { ListeNoteComponent } from './pages/note/pages/liste-note/liste-note.com
 import { ListeTuteurComponent } from './pages/tuteur/pages/liste-tuteur/liste-tuteur.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { MatiereFormComponent } from './pages/matiere/pages/matiere-form/matiere-form.component';
+import { TuteurFormComponent } from './pages/tuteur/pages/tuteur-form/tuteur-form.component';
+
+
 
 @NgModule({
   declarations: [
     AdminDashboardComponent,
     NavbarComponent,
-    
     ListeTuteurComponent
   ],
   imports: [
@@ -26,6 +29,8 @@ import { ToastrModule } from 'ngx-toastr';
     EleveListComponent,
     HttpClientModule,
     ToastrModule.forRoot(),
+    MatiereFormComponent,
+    TuteurFormComponent,    
   ]
 })
 export class AdminModule {}

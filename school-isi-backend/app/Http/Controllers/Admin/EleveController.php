@@ -38,11 +38,11 @@ class EleveController extends Controller
         })->with(['user', 'classe'])->get();
     }
 
-    public function parClasse($classeId)
+    public function parClasse($classeNom)
     {
-        return Eleve::where('classe_id', $classeId)
-            ->with(['user', 'classe'])
-            ->get();
+        return Eleve::whereHas('classe', function ($query) use ($classeNom) {
+            $query->where('nom', $classeNom);
+        })->with(['user', 'classe'])->get();
     }
 
     // Créer un élève
@@ -100,47 +100,46 @@ public function store(Request $request)
     }
 
     // Modifier un élève
-public function update(Request $request, $id)
-{
-    $eleve = Eleve::findOrFail($id);
+    public function update(Request $request, $id)
+    {
+        $eleve = Eleve::findOrFail($id);
 
-    // 🔁 Mise à jour des champs élève
-    $eleve->update([
-        'classe_id' => $request->classe_id,
-        'date_naissance' => $request->date_naissance,
-        'lieu_naissance' => $request->lieu_naissance,
-        'adresse' => $request->adresse
-    ]);
+        // 🔁 Mise à jour des champs élève
+        $eleve->update([
+            'classe_id' => $request->classe_id,
+            'date_naissance' => $request->date_naissance,
+            'lieu_naissance' => $request->lieu_naissance,
+            'adresse' => $request->adresse
+        ]);
 
-    // 🔁 Mise à jour des champs utilisateur liés
-    if ($request->filled('nom') || $request->filled('prenom') || $request->filled('email')) {
-        $user = $eleve->user;
-        if ($request->filled('nom')) $user->nom = $request->nom;
-        if ($request->filled('prenom')) $user->prenom = $request->prenom;
-        if ($request->filled('email')) $user->email = $request->email;
-        $user->save();
-    }
-
-    // 🔁 Justificatif (si changé)
-    if ($request->hasFile('justificatif')) {
-        $ancienDoc = Document::where('eleve_id', $eleve->id)->first();
-        if ($ancienDoc && Storage::disk('public')->exists($ancienDoc->chemin_fichier)) {
-            Storage::disk('public')->delete($ancienDoc->chemin_fichier);
-            $ancienDoc->delete();
+        // 🔁 Mise à jour des champs utilisateur liés
+        if ($request->filled('nom') || $request->filled('prenom') || $request->filled('email')) {
+            $user = $eleve->user;
+            if ($request->filled('nom')) $user->nom = $request->nom;
+            if ($request->filled('prenom')) $user->prenom = $request->prenom;
+            if ($request->filled('email')) $user->email = $request->email;
+            $user->save();
         }
 
-        $path = $request->file('justificatif')->store('justificatifs', 'public');
+        // 🔁 Justificatif (si changé)
+        if ($request->hasFile('justificatif')) {
+            $ancienDoc = Document::where('eleve_id', $eleve->id)->first();
+            if ($ancienDoc && Storage::disk('public')->exists($ancienDoc->chemin_fichier)) {
+                Storage::disk('public')->delete($ancienDoc->chemin_fichier);
+                $ancienDoc->delete();
+            }
 
-        Document::create([
-            'eleve_id' => $eleve->id,
-            'type_document' => 'Justificatif',
-            'chemin_fichier' => $path,
-        ]);
+            $path = $request->file('justificatif')->store('justificatifs', 'public');
+
+            Document::create([
+                'eleve_id' => $eleve->id,
+                'type_document' => 'Justificatif',
+                'chemin_fichier' => $path,
+            ]);
+        }
+
+        return response()->json(['message' => 'Élève mis à jour', 'data' => $eleve]);
     }
-
-    return response()->json(['message' => 'Élève mis à jour', 'data' => $eleve]);
-}
-
 
     // Supprimer
     public function destroy($id)

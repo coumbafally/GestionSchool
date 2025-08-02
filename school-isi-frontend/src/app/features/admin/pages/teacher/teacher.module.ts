@@ -3,12 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { TeacherRoutingModule } from './teacher-routing.module';
 
+import { FormsModule, NgModel } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [
     CommonModule,
-    TeacherRoutingModule
+    TeacherRoutingModule,
+    FormsModule,
+    RouterModule,
+    
   ]
 })
 export class TeacherModule { }

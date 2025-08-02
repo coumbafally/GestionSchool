@@ -1,0 +1,73 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"></div>
+    <h2 id="ti">ISI SCHOOL</h2>
+ 
+  </div>
+  <nav class="nav flex-column">
+    <a class="nav-link " routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link " routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link active" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link " routerLink="/admin/affectations"><i class="bi bi-building"></i> Affectations</a>
+    <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
+    <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
+    <a class="nav-link" routerLink="/admin/login"><i class="bi bi-clipboard-data"></i> Deconnexion</a>
+  </nav>
+</aside>
+
+<main class="main-content">
+  <div class="container py-4">
+    <div class="card shadow p-4 mb-4">
+      <h2 class="page-title">{{ isEditMode ? 'Modifier' : 'Créer' }} une matière</h2>
+
+      <form (ngSubmit)="onSubmit()" class="row g-3">
+        <div class="col-md-6">
+          <label>Nom</label>
+          <input type="text" class="form-control" title="nom" [(ngModel)]="matiere.nom" name="nom" required>
+        </div>
+        <div class="col-md-6">
+          <label>Coefficient</label>
+          <input type="number" min="1" class="form-control" title="coefficient" [(ngModel)]="matiere.coefficient" name="coefficient" required>
+        </div>
+        <div class="col-12 text-end">
+          <button type="submit" class="btn btn-gradient bi bi-journal-bookmark">
+            {{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="card shadow p-4">
+
+      <h4 class="page-title">Liste des matières</h4>
+     
+        <table class="table table-bordered text-center">
+          <thead class="table-primary">
+            <tr>
+              <th>N°</th>
+              <th>Nom</th>
+              <th>Coefficient</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of matieres; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ m.nom }}</td>
+              <td>{{ m.coefficient }}</td>
+              <td>
+        
+                <button class="btn btn-sm btn-outline-primary me-2" (click)="editMatiere(m.id!)">Modifier</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteMatiere(m.id!)">Supprimer</button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+   
+  </div>
+</main>

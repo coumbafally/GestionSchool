@@ -2216,14 +2216,14 @@ namespace App\Models {
      * @property float $note
      * @property mixed $type
      * @property string $periode
-     * @property int $matiere_id
+     * @property int|null $mce_id
      * @property int $eleve_id
      * @property int $id
      * @property-read \App\Models\Eleve $eleve
-     * @property-read \App\Models\Matiere $matiere
+     * @property-read \App\Models\MatiereClasseEnseignant $mce
      * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereEleveId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereMatiereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereMceId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note wherePeriode($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereType($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereNote($value)
