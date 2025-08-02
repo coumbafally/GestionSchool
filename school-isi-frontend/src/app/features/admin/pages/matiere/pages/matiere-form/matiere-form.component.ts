@@ -50,10 +50,11 @@ export class MatiereFormComponent implements OnInit {
     } else {
       this.matiereService.create(this.matiere).subscribe(() => {
         alert('Matière ajoutée');
-        this.matiere = { nom: '', coefficient: 1 }; // Réinitialiser
+        this.matiere = { nom: '', coefficient: 1 }; 
         this.loadMatieres();
       });
     }
+    
   }
 
   editMatiere(id: number) {

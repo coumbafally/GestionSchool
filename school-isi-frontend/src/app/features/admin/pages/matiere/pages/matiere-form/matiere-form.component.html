@@ -10,6 +10,7 @@
     <a class="nav-link " routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
     <a class="nav-link active" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
     <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link " routerLink="/admin/affectations"><i class="bi bi-building"></i> Affectations</a>
     <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
     <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
     <a class="nav-link" routerLink="/admin/login"><i class="bi bi-clipboard-data"></i> Deconnexion</a>
@@ -19,7 +20,7 @@
 <main class="main-content">
   <div class="container py-4">
     <div class="card shadow p-4 mb-4">
-      <h2 class="text-primary mb-4">{{ isEditMode ? 'Modifier' : 'Créer' }} une matière</h2>
+      <h2 class="page-title">{{ isEditMode ? 'Modifier' : 'Créer' }} une matière</h2>
 
       <form (ngSubmit)="onSubmit()" class="row g-3">
         <div class="col-md-6">
@@ -31,7 +32,7 @@
           <input type="number" min="1" class="form-control" [(ngModel)]="matiere.coefficient" name="coefficient" required>
         </div>
         <div class="col-12 text-end">
-          <button type="submit" class="btn btn-success">
+          <button type="submit" class="btn btn-gradient bi bi-journal-bookmark">
             {{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}
           </button>
         </div>
@@ -41,12 +42,12 @@
 
     <div class="card shadow p-4">
 
-      <h4 class="text-dark mb-3">Liste des matières</h4>
+      <h4 class="page-title">Liste des matières</h4>
      
         <table class="table table-bordered text-center">
           <thead class="table-primary">
             <tr>
-              <th>#</th>
+              <th>N°</th>
               <th>Nom</th>
               <th>Coefficient</th>
               <th>Actions</th>

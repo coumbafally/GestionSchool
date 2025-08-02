@@ -8,6 +8,7 @@ import { EleveFormComponent } from './pages/student/pages/eleve-form/eleve-form.
 import { EleveDetailsComponent } from './pages/student/pages/eleve-details/eleve-details.component';
 import { EnseignantFormComponent } from './pages/teacher/pages/enseignant-form/enseignant-form.component';
 import { MatiereFormComponent } from './pages/matiere/pages/matiere-form/matiere-form.component';
+import { AffectationFormComponent } from './pages/affectation/pages/affectation-form/affectation-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -24,6 +25,9 @@ const routes: Routes = [
   { path: 'matieres', component: MatiereFormComponent, canActivate: [authGuard] },
   { path: 'matieres/create', component: MatiereFormComponent, canActivate: [authGuard] },
   { path: 'matieres/edit/:id', component: MatiereFormComponent, canActivate: [authGuard] },
+  { path: 'affectations', component: AffectationFormComponent, canActivate: [authGuard] },
+  { path: 'affectations/create', component: AffectationFormComponent, canActivate: [authGuard] },
+  { path: 'affectations/edit/:id', component: AffectationFormComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

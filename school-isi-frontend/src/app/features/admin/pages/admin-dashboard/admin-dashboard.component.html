@@ -1,26 +1,32 @@
 <app-navbar></app-navbar>
 <div class="main-content" style="margin-left: 260px; padding: 2rem;">
-  <h2>Bienvenue dans le tableau de bord de l'administrateur</h2>
-  <p>Voici un aperçu global des statistiques de l'école :</p>
+  <div class="container">
+    <h2 class="text-center mb-4 bi bi-pencil">ISI SCHOOL</h2>
 
-  <div class="cards">
-    <div class="card dark">
-      <p class="label">Total enseignants</p>
-      <h3>34</h3>
-    </div>
-    <div class="card">
-      <p class="label">Élèves inscrits</p>
-      <h3>478</h3>
-    </div>
-    <div class="card">
-      <p class="label">Matières</p>
-      <h3>12</h3>
-    </div>
-    <div class="card">
-      <p class="label">Affectations</p>
-      <h3>89</h3>
-    </div>
+    <p class="text-center">VOTRE PORTAIL SCOLAIRE INTERACTIF</p>
+    
   </div>
+<div class="cards">
+  <div class="card " routerLink="/admin/enseignants" style="cursor: pointer;">
+    <p class="label">Total enseignants</p>
+    <h3>{{ stats.enseignants }}</h3>
+  </div>
+
+  <div class="card" routerLink="/admin/eleve" style="cursor: pointer;">
+    <p class="label">Élèves inscrits</p>
+    <h3>{{ stats.eleves }}</h3>
+  </div>
+
+  <div class="card" routerLink="/admin/matieres" style="cursor: pointer;">
+    <p class="label">Matières</p>
+    <h3>{{ stats.matieres }}</h3>
+  </div>
+
+  <div class="card" routerLink="/admin/affectations" style="cursor: pointer;">
+    <p class="label">Affectations</p>
+    <h3>{{ stats.affectations }}</h3>
+  </div>
+</div>
 
   <div class="charts">
     <div class="bar-chart">

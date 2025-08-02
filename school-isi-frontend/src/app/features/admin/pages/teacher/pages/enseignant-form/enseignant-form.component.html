@@ -10,6 +10,7 @@
     <a class="nav-link " routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
     <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
     <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link " routerLink="/admin/affectations"><i class="bi bi-building"></i> Affectations</a>
     <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
     <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
     <a class="nav-link" routerLink="/admin/login"><i class="bi bi-clipboard-data"></i> Deconnexion</a>
@@ -20,9 +21,9 @@
 <main class="main-content">
   <div class="container py-4">
     <div class="card shadow p-4 mb-4">
-      <h2 class="text-primary mb-4">{{ isEditMode ? 'Modifier' : 'Créer' }} un enseignant</h2>
+      <h2 class="page-title">{{ isEditMode ? 'Modifier' : 'Créer' }} un enseignant</h2>
 
-      <!-- Formulaire utilisateur (si non inscrit) -->
+    
       <form (ngSubmit)="onSubmit()" class="row g-3">
         <ng-container *ngIf="!enseignant.user_id">
           <div class="col-md-4">
@@ -38,13 +39,13 @@
             <input type="email" class="form-control" [(ngModel)]="newUser.email" name="email" required />
           </div>
           <div class="col-12 text-end">
-            <button type="button" class="btn btn-outline-primary" (click)="onRegister()">
+            <button type="button" class="btn btn-gradient" (click)="onRegister()">
               <i class="bi bi-person-plus"></i> Créer l'utilisateur
             </button>
           </div>
         </ng-container>
 
-        <!-- Formulaire enseignant -->
+      
         <ng-container *ngIf="enseignant.user_id && enseignant.user">
           <div class="col-md-4">
             <label>Nom</label>
@@ -70,7 +71,7 @@
         </ng-container>
       </form>
 
-      <!-- Erreurs -->
+      
       <div *ngIf="validationErrors" class="alert alert-danger mt-3">
         <ul>
           <li *ngFor="let err of validationErrors | keyvalue">
@@ -80,17 +81,16 @@
       </div>
     </div>
 
-    <!-- Liste des enseignants -->
     <div class="card shadow p-4">
 
-      <h4 class="text-dark mb-1">Liste des enseignants enregistrés</h4>
+      <h4 class="page-title">Liste des enseignants enregistrés</h4>
       
       
         <table class="table table-bordered table-hover align-middle text-center">
 
           <thead class="table-primary">
             <tr>
-              <th>#</th>
+              <th>N°</th>
               <th>Nom</th>
               <th>Prénom</th>
               <th>Email</th>

@@ -1,0 +1,88 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"></div>
+    <h2 id="ti">ISI SCHOOL</h2>
+ 
+  </div>
+  <nav class="nav flex-column">
+    <a class="nav-link " routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link " routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link " routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link active" routerLink="/admin/affectations"><i class=" bi bi-person-badge"></i> Affectations</a>
+    <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
+    <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
+    <a class="nav-link" routerLink="/admin/login"><i class="bi bi-clipboard-data"></i> Deconnexion</a>
+  </nav>
+</aside>
+
+<main class="main-content">
+
+<div class="container">
+    <div class="page-title">Affectation des matières et classes aux enseignants</div>
+
+  <form (ngSubmit)="save()" class="row g-3">
+    <div class="col-md-4">
+      <label>Classe</label>
+      <select class="form-control"  [(ngModel)]="form.classe_id" name="classe_id"  required>
+        <option value="" disabled selected>-- Sélectionner une classe --</option>
+        <option *ngFor="let c of classes" [value]="c.id">{{ c.nom }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label>Matière</label>
+      <select class="form-control" [(ngModel)]="form.matiere_id" name="matiere_id" required>
+         <option value="" disabled selected>-- Sélectionner une matière --</option>
+        <option *ngFor="let m of matieres" [value]="m.id">{{ m.nom }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label>Enseignant</label>
+      <select class="form-control" [(ngModel)]="form.enseignant_id" name="enseignant_id" required>
+         <option value="" disabled selected>-- Sélectionner un enseignant --</option>
+        <option *ngFor="let e of enseignants" [value]="e.id">
+          {{ e.user?.prenom }} {{ e.user?.nom }} {{ e.matricule }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-12 text-end">
+      <button type="submit" class="btn btn-gradient bi bi-person-badge">{{ form.id ? 'Mettre à jour' : 'Affecter' }}</button>
+    </div>
+  </form>
+
+  <div *ngIf="validationErrors" class="alert alert-danger mt-3">
+    <ul>
+      <li *ngFor="let err of validationErrors | keyvalue">{{ err.key }} : {{ err.value }}</li>
+    </ul>
+  </div>
+
+  <hr />
+
+  <h5 class="page-title">Liste des affectations</h5>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Classe</th>
+        <th>Matière</th>
+        <th>Enseignant</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of affectations">
+        <td>{{ a.classe?.nom }}</td>
+        <td>{{ a.matiere?.nom }}</td>
+        <td>{{ a.enseignant?.user?.prenom }} {{ a.enseignant?.user?.nom }} {{ a.enseignant?.matricule }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="edit(a)">Modifier</button>
+          <button class="btn btn-sm btn-outline-danger" (click)="delete(a.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</main>
