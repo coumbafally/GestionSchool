@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
@@ -16,31 +16,32 @@ class Note extends Model
         'periode',
         'note',
         'coefficient',
-        'appreciation',
+        'appreciation'
     ];
 
-    public function eleve()
-    {
+
+
+    public function eleve() {
         return $this->belongsTo(Eleve::class);
     }
 
-    public function mce()
-    {
+    public function matiereClasseEnseignant() {
         return $this->belongsTo(MatiereClasseEnseignant::class, 'mce_id');
     }
 
+
     public function matiere()
     {
-        return $this->mce?->matiere;
+        return $this->matiereClasseEnseignant?->matiere();
     }
 
     public function enseignant()
     {
-        return $this->mce?->enseignant;
+        return $this->mce?->enseignant();
     }
 
     public function classe()
     {
-        return $this->mce?->classe;
+        return $this->mce?->classe();
     }
 }

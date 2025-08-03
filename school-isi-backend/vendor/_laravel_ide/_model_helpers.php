@@ -2220,7 +2220,7 @@ namespace App\Models {
      * @property int $eleve_id
      * @property int $id
      * @property-read \App\Models\Eleve $eleve
-     * @property-read \App\Models\MatiereClasseEnseignant $mce
+     * @property-read \App\Models\MatiereClasseEnseignant $matiereClasseEnseignant
      * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereEleveId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Note>|Note whereMceId($value)

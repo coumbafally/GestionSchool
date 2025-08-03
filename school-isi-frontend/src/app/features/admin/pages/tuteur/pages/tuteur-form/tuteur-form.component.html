@@ -35,15 +35,15 @@
       <div class="row">
         <div class="col-md-4 mb-3">
           <label>Nom</label>
-          <input class="form-control" [(ngModel)]="newUser.nom" name="nom" required />
+          <input class="form-control" title="Nom" [(ngModel)]="newUser.nom" name="nom" required />
         </div>
         <div class="col-md-4 mb-3">
           <label>Prénom</label>
-          <input class="form-control" [(ngModel)]="newUser.prenom" name="prenom" required />
+          <input class="form-control" title="Prénom" [(ngModel)]="newUser.prenom" name="prenom" required />
         </div>
         <div class="col-md-4 mb-3">
           <label>Email</label>
-          <input class="form-control" type="email" [(ngModel)]="newUser.email" name="email" required />
+          <input class="form-control" type="email" title="Email" [(ngModel)]="newUser.email" name="email" required />
         </div>
       </div>
       <input type="hidden" [(ngModel)]="newUser.password" name="password" />
@@ -64,12 +64,12 @@
       <div class="row">
         <div class="col-md-6">
           <label>Numéro de téléphone</label>
-          <input class="form-control" [(ngModel)]="tuteur.numero_tel" name="numero_tel" required />
+          <input class="form-control" [(ngModel)]="tuteur.numero_tel" title="Numéro de téléphone" name="numero_tel" required />
         </div>
 
         <div class="col-md-6">
           <label>Élève assigné</label>
-          <select class="form-select" [(ngModel)]="tuteur.eleve_id" name="eleve_id" required>
+          <select class="form-select" [(ngModel)]="tuteur.eleve_id" title="Élève assigné" name="eleve_id" required>
             <option *ngFor="let e of eleves" [value]="e.id">
               {{ e.user?.prenom }} {{ e.user?.nom }}
             </option>

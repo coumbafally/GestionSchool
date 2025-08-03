@@ -10,10 +10,14 @@ import { EnseignantFormComponent } from './pages/teacher/pages/enseignant-form/e
 import { MatiereFormComponent } from './pages/matiere/pages/matiere-form/matiere-form.component';
 import { AffectationFormComponent } from './pages/affectation/pages/affectation-form/affectation-form.component';
 import { TuteurFormComponent } from './pages/tuteur/pages/tuteur-form/tuteur-form.component';
+import { NoteClasseComponent } from './pages/note/pages/note-classe/note-classe.component';
+import { NoteFormComponent } from './pages/note/pages/note-form/note-form.component';
+import { NoteClasseSelectionComponent } from './pages/note/pages/note-classe-selection/note-classe-selection.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
   { path: 'dashboard', component: AdminDashboardComponent, canActivate: [authGuard] },
 
   //éléves
@@ -28,6 +32,15 @@ const routes: Routes = [
   { path: 'tuteurs/edit/:id', component: TuteurFormComponent , canActivate: [authGuard]},
   //{ path: 'tuteurs/:id', component: TuteurDetailsComponent, canActivate: [authGuard] },
   
+  // notes
+  { path :  'notes' , component: NoteClasseComponent, canActivate : [authGuard]},
+  { path: 'notes/classe', component: NoteClasseComponent, canActivate: [authGuard] },
+  { path: 'notes/create', component: NoteFormComponent, canActivate: [authGuard] },
+  { path: 'notes/edit/:id', component: NoteFormComponent, canActivate: [authGuard] },
+  { path: 'notes/create/select-classe', component: NoteClasseSelectionComponent, canActivate: [authGuard] },
+  { path: 'notes/create/:classeId', component: NoteClasseSelectionComponent, canActivate: [authGuard] },
+  { path: 'notes/create/:classeId', component: NoteFormComponent, canActivate: [authGuard] },
+
   //Enseignant
   { path: 'enseignants', component: EnseignantFormComponent, canActivate: [authGuard] },
   { path: 'enseignants/create', component: EnseignantFormComponent, canActivate: [authGuard] },

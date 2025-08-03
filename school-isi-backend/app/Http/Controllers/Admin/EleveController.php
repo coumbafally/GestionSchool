@@ -45,6 +45,18 @@ class EleveController extends Controller
         })->with(['user', 'classe'])->get();
     }
 
+    
+    public function getByClasseId($id)
+    {
+        return Eleve::where('classe_id', $id)->with(['user', 'classe'])->get();
+    }
+    // Afficher les élèves d'une classe
+    public function elevesParClasse($classeId)
+    {
+        return Eleve::where('classe_id', $classeId)->with(['user', 'classe'])->get();
+    }
+
+
     // Créer un élève
 public function store(Request $request)
 {
@@ -148,6 +160,8 @@ public function store(Request $request)
 
         return response()->json(['message' => 'Élève supprimé']);
     }
+
+
 
     
 }

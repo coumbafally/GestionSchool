@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\TuteurController;
 use App\Http\Controllers\Admin\EleveController;
 use App\Http\Controllers\Admin\MatiereController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Teacher\NoteController;
+use App\Http\Controllers\Admin\NoteController;
 use App\Http\Controllers\Admin\MatiereClasseEnseignantController;
 use App\Http\Controllers\Admin\DashboardController;
 
@@ -56,6 +56,9 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
         Route::get('/{id}', [EleveController::class, 'show']);
         Route::put('/{id}', [EleveController::class, 'update']);
         Route::delete('/{id}', [EleveController::class, 'destroy']);
+        Route::get('/classe-id/{id}', [EleveController::class, 'getByClasseId']);
+
+        
     });
 
     // Enseignants
@@ -65,6 +68,7 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
         Route::get('/{id}', [EnseignantController::class, 'show']);
         Route::put('/{id}', [EnseignantController::class, 'update']);
         Route::delete('/{id}', [EnseignantController::class, 'destroy']);
+        
     });
 
 
@@ -79,7 +83,8 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
 
     // Affectation Matières/Classes/Enseignants
     Route::apiResource('affectations', MatiereClasseEnseignantController::class);
-
+    Route::get('admin/affectations/classe/{classeId}', [MatiereClasseEnseignantController::class, 'getByClasse']);
+    
 
     // Tuteurs
 
@@ -90,9 +95,22 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
         Route::put('/{id}', [TuteurController::class, 'update']);
         Route::delete('/{id}', [TuteurController::class, 'destroy']);
     });
-    // Notes + Moyenne par période
-    Route::apiResource('notes', NoteController::class);
-    Route::get('/notes/moyenne/{eleveId}/{periode}', [NoteController::class, 'moyenneParPeriode']);
+
+   // notes
+    Route::prefix('notes')->group(function () {
+        Route::get('/', [NoteController::class, 'index']);
+        Route::post('/', [NoteController::class, 'store']);
+        Route::get('/{id}', [NoteController::class, 'show']);
+        Route::put('/{id}', [NoteController::class, 'update']);
+        Route::delete('/{id}', [NoteController::class, 'destroy']);
+
+        Route::get('/moyenne/{eleveId}/{periode}', [NoteController::class, 'moyenneParPeriode']);
+        Route::get('/classe/{classeId}/periode/{periode}', [NoteController::class, 'notesParClasseEtPeriode']);
+        Route::get('/admin/eleves/{eleveId}/bulletin/{periode}', [NoteController::class, 'bulletinParEleveEtPeriode']);
+
+        
+    });
+
 
     //users
     Route::get('/users', [UserController::class, 'index']);

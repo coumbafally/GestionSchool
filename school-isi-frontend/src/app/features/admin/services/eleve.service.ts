@@ -24,9 +24,17 @@ export class EleveService {
     getEleveWithDocuments(id: number) {
         return this.http.get<any>(`${this.apiUrl}/${id}`);
     }
+    
+    getByClasseId(id: number): Observable<Eleve[]> {
+    return this.http.get<Eleve[]>(`${this.apiUrl}/classe/${id}`);
+    }
 
     getByClasse(classeNom: string): Observable<Eleve[]> {
         return this.http.get<Eleve[]>(`${this.apiUrl}/classe/${classeNom}`);
+    }
+
+    getByMatiere(matiereId: number): Observable<Eleve[]> {
+        return this.http.get<Eleve[]>(`${this.apiUrl}/matiere/${matiereId}`);
     }
 
     getByNiveau(niveau: string): Observable<Eleve[]> {
