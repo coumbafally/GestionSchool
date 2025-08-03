@@ -118,6 +118,9 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
     //document éléve
     Route::get('/admin/eleves/{id}/documents', [EleveController::class, 'showWithDocuments']);
 
+    //bulletins
+    Route::get('bulletins/{eleveId}/{periode}/pdf', [NoteController::class, 'genererBulletinPdf']);
+
 });
 
 /*

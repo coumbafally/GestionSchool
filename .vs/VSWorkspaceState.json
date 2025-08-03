@@ -1,6 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\school-isi-backend",
+    "\\school-isi-backend\\app",
+    "\\school-isi-backend\\app\\Http",
+    "\\school-isi-backend\\app\\Http\\Controllers",
+    "\\school-isi-backend\\app\\Http\\Controllers\\Admin",
+    "\\school-isi-backend\\resources",
+    "\\school-isi-frontend"
   ],
   "PreviewInSolutionExplorer": false
 }

@@ -11,7 +11,7 @@
 
     <p>Nous sommes ravis de vous accueillir sur ISI School, votre portail scolaire.</p>
 
-     <p>Vous pouvez vous connecter ici :</p>
+    <p>Vous pouvez vous connecter ici :</p>
 
     <div style="background: #f2f2f2; padding: 10px; border-radius: 5px;">
         <strong>Identifiant :</strong> {{ $email }}<br>

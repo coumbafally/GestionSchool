@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Note;
 use App\Models\Eleve;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class NoteController extends Controller
 {
@@ -30,21 +31,12 @@ class NoteController extends Controller
 
         $note = Note::create($validated);
 
-        return response()->json([
-            'message' => 'Note enregistrée avec succès',
-            'data' => $note
-        ]);
+        return response()->json(['message' => 'Note enregistrée avec succès', 'data' => $note]);
     }
 
     public function show($id)
     {
-        return Note::with([
-            'eleve.user', 
-            'eleve.classe', 
-            'mce.matiere', 
-            'mce.classe', 
-            'mce.enseignant'
-        ])->findOrFail($id);
+        return Note::with(['eleve.user', 'eleve.classe', 'mce.matiere', 'mce.classe', 'mce.enseignant'])->findOrFail($id);
     }
 
     public function update(Request $request, $id)
@@ -61,10 +53,7 @@ class NoteController extends Controller
 
         $note->update($validated);
 
-        return response()->json([
-            'message' => 'Note mise à jour',
-            'data' => $note
-        ]);
+        return response()->json(['message' => 'Note mise à jour', 'data' => $note]);
     }
 
     public function destroy($id)
@@ -77,9 +66,7 @@ class NoteController extends Controller
 
     public function moyenneParPeriode($eleveId, $periode)
     {
-        $notes = Note::where('eleve_id', $eleveId)
-            ->where('periode', $periode)
-            ->get();
+        $notes = Note::where('eleve_id', $eleveId)->where('periode', $periode)->get();
 
         if ($notes->isEmpty()) {
             return response()->json(['message' => 'Aucune note trouvée'], 404);
@@ -87,11 +74,10 @@ class NoteController extends Controller
 
         $total = 0;
         $coeffTotal = 0;
-
         foreach ($notes as $note) {
-            $coeff = $note->coefficient ?? 1;
-            $total += $note->note * $coeff;
-            $coeffTotal += $coeff;
+            $coef = $note->coefficient ?? 1;
+            $total += $note->note * $coef;
+            $coeffTotal += $coef;
         }
 
         $moyenne = $coeffTotal > 0 ? round($total / $coeffTotal, 2) : 0;
@@ -103,41 +89,53 @@ class NoteController extends Controller
         ]);
     }
 
-    public function notesParClasseEtPeriode($classeId, $periode)
-{
-    $notes = Note::with([
-        'eleve.user',
-        'matiereClasseEnseignant.matiere',
-        'matiereClasseEnseignant.enseignant.user'
-    ])
-    ->whereHas('eleve', function ($query) use ($classeId) {
-        $query->where('classe_id', $classeId);
-    })
-    ->where('periode', $periode)
-    ->get();
+    public function bulletinParClasse($classeId, $periode)
+    {
+        $eleves = Eleve::with(['user', 'classe'])->where('classe_id', $classeId)->get();
 
-    return response()->json($notes);
-    }
+        $resultats = $eleves->map(function ($eleve) use ($periode) {
+            $notes = $eleve->notes()->with('mce.matiere')->where('periode', $periode)->get();
 
-    public function getByClasseAndPeriode($classeId, $periode)
-{
-    return Note::with(['eleve.user', 'matiereClasseEnseignant.matiere'])
-        ->whereHas('matiereClasseEnseignant', function ($q) use ($classeId) {
-            $q->where('classe_id', $classeId);
-        })
-        ->where('periode', $periode)
-        ->get();
+            $total = 0;
+            $coeffTotal = 0;
+            $bulletin = [];
+
+            foreach ($notes as $note) {
+                $coef = $note->coefficient ?? 1;
+                $total += $note->note * $coef;
+                $coeffTotal += $coef;
+
+                $bulletin[] = [
+                    'matiere' => $note->mce->matiere->nom,
+                    'note' => $note->note,
+                    'coefficient' => $coef,
+                    'type' => $note->type,
+                    'appreciation' => $note->appreciation
+                ];
+            }
+
+            $moyenne = $coeffTotal ? round($total / $coeffTotal, 2) : 0;
+
+            return [
+                'eleve' => $eleve->user->prenom . ' ' . $eleve->user->nom,
+                'identifiant' => $eleve->identifiant_eleve,
+                'classe' => $eleve->classe->nom,
+                'periode' => $periode,
+                'notes' => $bulletin,
+                'moyenne' => $moyenne,
+                'mention' => $this->mention($moyenne)
+            ];
+        });
+
+        return response()->json($resultats);
     }
 
     public function bulletinParEleveEtPeriode($eleveId, $periode)
     {
-        $notes = Note::with([
-            'matiereClasseEnseignant.matiere',
-            'matiereClasseEnseignant.enseignant.user'
-        ])
-        ->where('eleve_id', $eleveId)
-        ->where('periode', $periode)
-        ->get();
+        $notes = Note::with(['matiereClasseEnseignant.matiere', 'matiereClasseEnseignant.enseignant.user'])
+            ->where('eleve_id', $eleveId)
+            ->where('periode', $periode)
+            ->get();
 
         if ($notes->isEmpty()) {
             return response()->json(['message' => 'Aucune note trouvée pour cet élève et cette période.'], 404);
@@ -187,6 +185,49 @@ class NoteController extends Controller
         ]);
     }
 
+
+
+    public function genererBulletinPdf($eleveId, $periode)
+    {
+        $eleve = Eleve::with(['user', 'classe'])->findOrFail($eleveId);
+        $notes = Note::with('matiereClasseEnseignant.matiere')
+            ->where('eleve_id', $eleveId)
+            ->where('periode', $periode)
+            ->get();
+
+        $total = 0;
+        $coeffTotal = 0;
+        $bulletin = [];
+
+        foreach ($notes as $note) {
+            $coef = $note->coefficient ?? 1;
+            $total += $note->note * $coef;
+            $coeffTotal += $coef;
+
+            $bulletin[] = [
+                'matiere' => $note->matiereClasseEnseignant->matiere->nom ?? 'Inconnue',
+                'type' => $note->type,
+                'note' => $note->note,
+                'coef' => $coef,
+                'appreciation' => $note->appreciation
+            ];
+        }
+
+        $moyenne = $coeffTotal ? round($total / $coeffTotal, 2) : 0;
+        $mention = $this->mention($moyenne);
+
+        $pdf = Pdf::loadView('bulletin', [
+            'eleve' => $eleve,
+            'periode' => $periode,
+            'notes' => $bulletin,
+            'moyenne' => $moyenne,
+            'mention' => $mention
+        ]);
+
+        return $pdf->download("Bulletin_{$eleve->identifiant_eleve}_{$periode}.pdf");
+    }
+
+
     private function mention($moyenne)
     {
         return match(true) {
@@ -197,6 +238,4 @@ class NoteController extends Controller
             default => 'Insuffisant',
         };
     }
-
-
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Eleve;
+use App\Models\Note;
+use App\Models\Bulletin;
 use App\Models\Classe;
 use App\Models\User;
 use App\Models\Document;
@@ -103,8 +105,6 @@ class EleveController extends Controller
         return response()->json(['message' => 'Élève créé avec succès'], 201);
     }
 
-
-
     // Afficher un élève avec ses documents
     public function showWithDocuments($id)
     {
@@ -167,6 +167,51 @@ class EleveController extends Controller
 
         return response()->json(['message' => 'Élève supprimé']);
     }
+
+public function mesBulletins(Request $request)
+{
+    $user = Auth::user();
+    $eleve = Eleve::where('user_id', $user->id)->first();
+
+    $notes = Note::with('mce.matiere')
+        ->where('eleve_id', $eleve->id)
+        ->get()
+        ->groupBy('periode');
+
+    $resultat = [];
+
+    foreach ($notes as $periode => $listeNotes) {
+        $total = 0;
+        $coeffTotal = 0;
+        $detail = [];
+
+        foreach ($listeNotes as $note) {
+            $coef = $note->coefficient ?? 1;
+            $total += $note->note * $coef;
+            $coeffTotal += $coef;
+
+            $detail[] = [
+                'matiere' => $note->mce->matiere->nom,
+                'note' => $note->note,
+                'coef' => $coef,
+                'type' => $note->type,
+                'appreciation' => $note->appreciation
+            ];
+        }
+
+        $moy = $coeffTotal ? round($total / $coeffTotal, 2) : 0;
+
+        $resultat[] = [
+            'periode' => $periode,
+            'notes' => $detail,
+            'moyenne' => $moy,
+            'mention' => $moy >= 16 ? 'Très Bien' : ($moy >= 14 ? 'Bien' : ($moy >= 12 ? 'Assez Bien' : ($moy >= 10 ? 'Passable' : 'Insuffisant')))
+        ];
+    }
+
+    return response()->json($resultat);
+}
+
 
 
 
