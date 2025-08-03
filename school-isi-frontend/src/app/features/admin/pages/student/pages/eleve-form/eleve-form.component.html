@@ -1,3 +1,4 @@
+
 <aside class="sidebar">
   <div class="logo">ISI SCHOOL</div>
   <nav class="nav flex-column">
@@ -6,10 +7,7 @@
     <a class="nav-link active" routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
     <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
     <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
-    <a class="nav-link" routerLink="/admin/affectations"><i class="bi bi-building"></i> Affectations</a>
     <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
-    <a class="nav-link" routerLink="/admin/login"><i class="bi bi-clipboard-data"></i> Deconnexion</a>
-
   </nav>
 </aside>
 
@@ -25,127 +23,106 @@
 
 <main>
   <div class="form-wrapper container mt-5">
-    <div class="card shadow p-4 mb-4">
-      <h3>Inscription de l'utilisateur</h3>
 
+    <!-- Formulaire de création utilisateur -->
+    <div class="card shadow p-4 mb-4" *ngIf="!isEditMode">
+      <h3>Inscription de l'utilisateur</h3>
       <form (ngSubmit)="onRegister()">
         <div class="row">
-          <!-- NOM -->
-           <label for="">nom</label>
-          <input type="text" class="form-control" id="user_nom"
-          [(ngModel)]="eleve.user.nom" name="nom" />
-
-          <!-- PRENOM -->
-          <input type="text" class="form-control" id="user_prenom"
-          [(ngModel)]="eleve.user.prenom" name="prenom" />
-
-          <!-- EMAIL -->
-          <input type="email" class="form-control" id="user_email"
-          [(ngModel)]="eleve.user.email" name="email" />
+          <div class="col-md-4 mb-3">
+            <label>Nom</label>
+            <input type="text" class="form-control" [(ngModel)]="newUser.nom" name="nom" title="nom" required />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>Prénom</label>
+            <input type="text" class="form-control" [(ngModel)]="newUser.prenom" name="prenom" title="prenom" required />
+          </div>
+          <div class="col-md-4 mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" [(ngModel)]="newUser.email" name="email" title="email" required />
+          </div>
         </div>
-
         <input type="hidden" [(ngModel)]="newUser.password" name="password" />
         <input type="hidden" [(ngModel)]="newUser.password_confirmation" name="password_confirmation" />
         <input type="hidden" [(ngModel)]="newUser.role" name="role" />
-
-        <button type="submit" class="btn btn-primary mt-3">Inscrire</button>
+        <button type="submit" class="btn btn-primary">Inscrire</button>
       </form>
     </div>
 
+    <!-- Formulaire élève -->
     <div class="card shadow p-4">
       <h2 class="mb-4">{{ isEditMode ? 'Modifier' : 'Créer' }} un élève</h2>
       <form (ngSubmit)="onSubmit()">
 
-        <!-- Utilisateur -->
-
-        <div *ngIf="eleve.user_id" class="alert alert-info">
-          Utilisateur inscrit : <strong>{{ newUser.prenom }} {{ newUser.nom }}</strong>
-        <!-- pour update Utilisateur -->
-        </div>
-        <div class="mb-3" *ngIf="isEditMode">
-          <label for="user_nom" class="form-label">Nom</label>
-          <input type="text" class="form-control" id="user_nom" [(ngModel)]="eleve.user.nom" name="user_nom" />
+        <div *ngIf="registeredEleveInfo" class="alert alert-success">
+          Utilisateur inscrit : {{ registeredEleveInfo.prenom }} {{ registeredEleveInfo.nom }}
         </div>
 
-        <div class="mb-3" *ngIf="isEditMode">
-          <label for="user_prenom" class="form-label">Prénom</label>
-          <input type="text" class="form-control" id="user_prenom" [(ngModel)]="eleve.user.prenom" name="user_prenom" />
-        </div>
+        <div class="row">
+          <div class="col-md-6" *ngIf="isEditMode">
+            <h5>Utilisateur</h5>
+            <div class="mb-3">
+              <label>Nom</label>
+              <input class="form-control" [(ngModel)]="eleve.user.nom" name="user_nom" title="nom" required />
+            </div>
+            <div class="mb-3">
+              <label>Prénom</label>
+              <input class="form-control" [(ngModel)]="eleve.user.prenom" name="user_prenom" title="prenom" required />
+            </div>
+            <div class="mb-3">
+              <label>Email</label>
+              <input class="form-control" [(ngModel)]="eleve.user.email" name="user_email" title="email" required />
+            </div>
+          </div>
 
-        <div class="mb-3" *ngIf="isEditMode">
-          <label for="user_email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="user_email" [(ngModel)]="eleve.user.email" name="user_email" />
-        </div>
-
-
-
-        <!-- Classe -->
-        <div class="mb-3">
-          <label for="classe_id" class="form-label">Classe</label>
-          <select id="classe_id" class="form-select" [(ngModel)]="eleve.classe_id" name="classe_id" required>
-            <option value="" disabled selected>-- Sélectionner une classe --</option>
-            <option *ngFor="let classe of classes" [value]="classe.id">
-              {{ classe.nom }} ({{ classe.niveau }})
-            </option>
-          </select>
-        </div>
-
-        <!-- Date de naissance -->
-        <div class="mb-3">
-          <label for="date_naissance" class="form-label">Date de naissance</label>
-          <input type="date" class="form-control" id="date_naissance" [(ngModel)]="eleve.date_naissance" name="date_naissance" required />
-        </div>
-
-        <!-- Lieu de naissance -->
-        <div class="mb-3">
-          <label for="lieu_naissance" class="form-label">Lieu de naissance</label>
-          <input type="text" class="form-control" id="lieu_naissance" [(ngModel)]="eleve.lieu_naissance" name="lieu_naissance" required />
-        </div>
-
-        <!-- Adresse -->
-        <div class="mb-3">
-          <label for="adresse" class="form-label">Adresse</label>
-          <input type="text" class="form-control" id="adresse" [(ngModel)]="eleve.adresse" name="adresse" required />
-        </div>
-
-        <!-- Justificatif -->
-        <div class="mb-3">
-          <label for="justificatif" class="form-label">Justificatif (PDF/JPG/PNG)</label>
-          <input type="file" class="form-control" id="justificatif" (change)="onFileChange($event)" accept=".pdf,.jpg,.jpeg,.png" />
-        </div>
-
-                <!-- Justificatif existant -->
-        <div class="mb-3" *ngIf="isEditMode"> 
-          <div class="mb-3" *ngIf="documentUrl">
-            <label class="form-label">Justificatif existant</label><br />
-            <a [href]="documentUrl" target="_blank" class="btn btn-outline-primary btn-sm">
-              📄 Télécharger le justificatif
-            </a>
+          <div class="col-md-6">
+            <h5>Informations élève</h5>
+            <div class="mb-3">
+              <label>Classe</label>
+              <select class="form-select" [(ngModel)]="eleve.classe_id" name="classe_id" title="classe" required>
+                <option *ngFor="let classe of classes" [value]="classe.id">
+                  {{ classe.nom }} ({{ classe.niveau }})
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label>Date de naissance</label>
+              <input class="form-control" type="date" [(ngModel)]="eleve.date_naissance" name="date_naissance" title="date_naissance" required />
+            </div>
+            <div class="mb-3">
+              <label>Lieu de naissance</label>
+              <input class="form-control" [(ngModel)]="eleve.lieu_naissance" name="lieu_naissance" title="lieu_naissance" required />
+            </div>
+            <div class="mb-3">
+              <label>Adresse</label>
+              <input class="form-control" [(ngModel)]="eleve.adresse" name="adresse" title="adresse" required />
+            </div>
+            <div class="mb-3">
+              <label>Justificatif</label>
+              <input class="form-control" type="file" (change)="onFileChange($event)" title="file" />
+            </div>
+            <div class="mb-3" *ngIf="isEditMode && documentUrl">
+              <a [href]="documentUrl" class="btn btn-outline-primary" target="_blank">📄 Télécharger le justificatif</a>
+            </div>
+            <div class="mb-3" *ngIf="isEditMode">
+              <label>Identifiant</label>
+              <input class="form-control" [(ngModel)]="eleve.identifiant_eleve" name="identifiant_eleve" readonly title="Identifiant" />
+            </div>
           </div>
         </div>
-        
-        <!-- Identifiant élève -->
-       <div class="mb-3" *ngIf="isEditMode">
-        <label for="identifiant_eleve" class="form-label">Identifiant élève</label>
-        <input type="text" class="form-control" id="identifiant_eleve" [(ngModel)]="eleve.identifiant_eleve" name="identifiant_eleve" readonly />
-      </div>
-      <!-- Affichage erreurs -->
-<div *ngIf="validationErrors" class="alert alert-danger">
-  <ul>
-    <li *ngFor="let error of validationErrors | keyvalue">
-      {{ error.key }} 
-    </li>
-  </ul>
-</div>
-        <!-- Boutons -->
-        <div class="d-flex justify-content-between mt-4">
-          <button type="button" class="btn btn-secondary" (click)="router.navigate(['/admin/eleve'])">Retour</button>
-          <button type="submit" class="btn btn-success">
-            {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
-          </button>
+
+        <div *ngIf="validationErrors" class="alert alert-danger">
+          <ul>
+            <li *ngFor="let error of validationErrors | keyvalue">{{ error.key }}: {{ error.value }}</li>
+          </ul>
         </div>
 
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-secondary" type="button" (click)="router.navigate(['/admin/eleve'])">Retour</button>
+          <button class="btn btn-success" type="submit" [disabled]="!eleve.user_id">{{ isEditMode ? 'Mettre à jour' : 'Créer' }}</button>
+        </div>
       </form>
     </div>
   </div>
 </main>
+
