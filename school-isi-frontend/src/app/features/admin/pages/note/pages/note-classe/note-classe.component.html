@@ -22,7 +22,7 @@
     <div class="row mb-3">
       <div class="col-md-4">
         <label>Classe</label>
-        <select class="form-select" [(ngModel)]="selectedClasseId">
+        <select class="form-select" title="classe" [(ngModel)]="selectedClasseId">
           <option [ngValue]="null">-- Sélectionner une classe --</option>
           <option *ngFor="let c of classes" [value]="c.id">{{ c.nom }} ({{ c.niveau }})</option>
         </select>
@@ -30,7 +30,7 @@
 
       <div class="col-md-4">
         <label>Période</label>
-        <select class="form-select" [(ngModel)]="periode" name="periode" required>
+        <select class="form-select" title="periode" [(ngModel)]="periode" name="periode" required>
           <option value="">-- Sélectionner une période --</option>
           <option value="semestre 1">Semestre 1</option>
           <option value="semestre 2">Semestre 2</option>

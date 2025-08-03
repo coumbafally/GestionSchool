@@ -36,6 +36,8 @@ export class EnseignantFormComponent implements OnInit {
   isEditMode = false;
   id!: number;
   validationErrors: any = null;
+  loading = false;
+  successMessage: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,6 +71,7 @@ export class EnseignantFormComponent implements OnInit {
   }
 
   onRegister(): void {
+    this.loading = true;
     this.enseignantService.registerUser(this.newUser).subscribe({
       next: (userRes) => {
         this.enseignant.user_id = userRes.user.id;
@@ -77,16 +80,18 @@ export class EnseignantFormComponent implements OnInit {
           prenom: userRes.user.prenom,
           email: userRes.user.email
         };
-        alert('Utilisateur créé avec succès !');
         this.newUser = {
           nom: '', prenom: '', email: '',
           password: 'Passer@1', password_confirmation: 'Passer@1', role: 'enseignant'
         };
-        this.onSubmit(); // Crée automatiquement l'enseignant après création user
+        this.onSubmit(); 
       },
       error: (err) => {
+        this.loading = false;
         if (err.status === 422 || err.status === 400) {
-          this.validationErrors = err.error;
+          this.validationErrors = err.error.errors || err.error;
+        } else {
+          alert("Erreur serveur lors de la création de l'utilisateur.");
         }
       }
     });
@@ -95,7 +100,6 @@ export class EnseignantFormComponent implements OnInit {
   onSubmit(): void {
     const formData = new FormData();
     formData.append('user_id', this.enseignant.user_id.toString());
-    formData.append('matricule', this.enseignant.matricule);
 
     if (this.enseignant.user) {
       formData.append('nom', this.enseignant.user.nom);
@@ -105,14 +109,26 @@ export class EnseignantFormComponent implements OnInit {
 
     if (this.isEditMode) {
       this.enseignantService.update(this.id, formData).subscribe(() => {
-        alert('Enseignant mis à jour');
+        this.successMessage = 'Enseignant mis à jour';
         this.router.navigate(['/admin/enseignants']);
+        this.loading = false;
       });
     } else {
-      this.enseignantService.create(formData).subscribe(() => {
-        alert('Enseignant ajouté');
-        this.resetForm();
-        this.loadEnseignants();
+      this.enseignantService.create(formData).subscribe({
+        next: () => {
+          this.successMessage = 'Enseignant ajouté';
+          this.resetForm();
+          this.loadEnseignants();
+          this.loading = false;
+        },
+        error: (err) => {
+          this.loading = false;
+          if (err.status === 500) {
+            alert("Erreur de création : " + (err.error?.error || 'Erreur interne du serveur'));
+          } else if (err.status === 422 || err.status === 400) {
+            this.validationErrors = err.error.errors || err.error;
+          }
+        }
       });
     }
   }

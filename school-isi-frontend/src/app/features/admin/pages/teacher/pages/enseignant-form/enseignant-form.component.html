@@ -17,6 +17,16 @@
   </nav>
 </aside>
 
+<div class="top-header">
+  <button class="btn btn-sm text-white d-lg-none" title="toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+  <div class="user-profile">
+    <i class="bi bi-bell fs-5" routerLink="/admin/notifications" title="Notifications"></i>
+    <i class="bi bi-box-arrow-right" routerLink="/auth/login" title="Déconnexion"></i>
+    <img src="https://ui-avatars.com/api/?name=Admin&background=random&color=fff" alt="" class="user-avatar ms-3" />
+    <span class="ms-2">Administrateur</span>
+  </div>
+</div>
+
 
 <main class="main-content">
   <div class="container py-4">
@@ -28,15 +38,15 @@
         <ng-container *ngIf="!enseignant.user_id">
           <div class="col-md-4">
             <label>Nom</label>
-            <input type="text" class="form-control" [(ngModel)]="newUser.nom" name="nom"  title="nom" required />
+            <input type="text" class="form-control" [(ngModel)]="newUser.nom" name="nom" required />
           </div>
           <div class="col-md-4">
             <label>Prénom</label>
-            <input type="text" class="form-control" [(ngModel)]="newUser.prenom" name="prenom" title="prenom"  required />
+            <input type="text" class="form-control" [(ngModel)]="newUser.prenom" name="prenom" required />
           </div>
           <div class="col-md-4">
             <label>Email</label>
-            <input type="email" class="form-control" [(ngModel)]="newUser.email" name="email" title="email" required />
+            <input type="email" class="form-control" [(ngModel)]="newUser.email" name="email" required />
           </div>
           <div class="col-12 text-end">
             <button type="button" class="btn btn-gradient" (click)="onRegister()">
@@ -49,23 +59,20 @@
         <ng-container *ngIf="enseignant.user_id && enseignant.user">
           <div class="col-md-4">
             <label>Nom</label>
-            <input type="text" class="form-control" [(ngModel)]="enseignant.user.nom" name="nom" title="nom" required />
+            <input type="text" class="form-control" [(ngModel)]="enseignant.user.nom" name="nom" required />
           </div>
           <div class="col-md-4">
             <label>Prénom</label>
-            <input type="text" class="form-control" [(ngModel)]="enseignant.user.prenom" name="prenom" title="prenom" required />
+            <input type="text" class="form-control" [(ngModel)]="enseignant.user.prenom" name="prenom" required />
           </div>
           <div class="col-md-4">
             <label>Email</label>
-            <input type="email" class="form-control" [(ngModel)]="enseignant.user.email" name="email" title="email" required />
+            <input type="email" class="form-control" [(ngModel)]="enseignant.user.email" name="email" required />
           </div>
-          <div class="col-md-6">
-            <label>Matricule</label>
-            <input type="text" class="form-control" [(ngModel)]="enseignant.matricule" name="matricule" title="matricule" required />
-          </div>
+        
           <div class="col-12 text-end">
-            <button type="submit" class="btn btn-success mt-2">
-              {{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }}
+            <button type="submit" class="btn btn-gradient mt-2">
+              {{ isEditMode ? 'Mettre à jour' : 'Enregistrer' }} l'enseignant
             </button>
           </div>
         </ng-container>

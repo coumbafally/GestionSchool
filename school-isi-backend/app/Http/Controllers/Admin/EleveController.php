@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class EleveController extends Controller
 {
+
     public function index()
     {
         return Eleve::with(['user', 'classe'])->get();
@@ -58,43 +59,49 @@ class EleveController extends Controller
 
 
     // Créer un élève
-public function store(Request $request)
-{
-    $request->validate([
-        'user_id' => 'required|exists:users,id',
-        'classe_id' => 'required|exists:classes,id',
-        'date_naissance' => 'required|date',
-        'lieu_naissance' => 'required|string',
-        'adresse' => 'required|string',
-        'justificatif' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048'
-    ]);
-
-    // Génération d’identifiant automatique
-    $identifiant = 'ISI-' . now()->year . '-' . rand(011, 1999);
-
-
-    $eleve = Eleve::create([
-        'user_id' => $request->user_id,
-        'classe_id' => $request->classe_id,
-        'date_naissance' => $request->date_naissance,
-        'lieu_naissance' => $request->lieu_naissance,
-        'adresse' => $request->adresse,
-        'identifiant_eleve' => $identifiant,
-    ]);
-
-    // Gestion du fichier justificatif
-    if ($request->hasFile('justificatif')) {
-        $file = $request->file('justificatif');
-        $path = $file->store('justificatifs', 'public');
-
-        $eleve->documents()->create([
-            'type_document' => 'Justificatif',
-            'chemin_fichier' => $path,
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'classe_id' => 'required|exists:classes,id',
+            'date_naissance' => 'required|date',
+            'lieu_naissance' => 'required|string',
+            'adresse' => 'required|string',
+            'justificatif' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048'
         ]);
-    }
 
-    return response()->json(['message' => 'Élève créé avec succès'], 201);
-}
+        // Génération d’identifiant automatique
+        $identifiant = 'ISI-' . now()->year . '-' . rand(011, 1999);
+
+
+        $eleve = Eleve::create([
+            'user_id' => $request->user_id,
+            'classe_id' => $request->classe_id,
+            'date_naissance' => $request->date_naissance,
+            'lieu_naissance' => $request->lieu_naissance,
+            'adresse' => $request->adresse,
+            'identifiant_eleve' => $identifiant,
+
+        ]);
+
+        //$user = User::findOrFail($validated['user_id']);
+      //  $validated = $request->only(['user_id']);
+
+        //$user->sendWelcomeMail('Passer@1');
+
+        // Gestion du fichier justificatif
+        if ($request->hasFile('justificatif')) {
+            $file = $request->file('justificatif');
+            $path = $file->store('justificatifs', 'public');
+
+            $eleve->documents()->create([
+                'type_document' => 'Justificatif',
+                'chemin_fichier' => $path,
+            ]);
+        }
+
+        return response()->json(['message' => 'Élève créé avec succès'], 201);
+    }
 
 
 

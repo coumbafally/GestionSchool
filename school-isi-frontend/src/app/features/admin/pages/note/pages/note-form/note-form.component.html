@@ -29,14 +29,14 @@
     <div class="row">
       <div class="col-md-6 mb-3">
         <label>Élève</label>
-        <select class="form-select" [(ngModel)]="note.eleve_id" name="eleve_id" required>
+        <select class="form-select" title="élève" [(ngModel)]="note.eleve_id" name="eleve_id" required>
           <option *ngFor="let e of eleves" [value]="e.id">{{ e.user?.prenom }} {{ e.user?.nom }}</option>
         </select>
       </div>
 
       <div class="col-md-6 mb-3">
         <label>Matière / Classe / Enseignant</label>
-        <select class="form-select" [(ngModel)]="note.mce_id" name="mce_id" required>
+        <select class="form-select" title="mce" [(ngModel)]="note.mce_id" name="mce_id" required>
           <option *ngFor="let m of mces" [value]="m.id">
             {{ m.matiere.nom }} - {{ m.classe.nom }} ({{ m.enseignant.user.prenom }} {{ m.enseignant.user.nom }})
           </option>
@@ -45,7 +45,7 @@
 
       <div class="col-md-4 mb-3">
         <label>Type</label>
-        <select class="form-select" [(ngModel)]="note.type" name="type">
+        <select class="form-select"  title="type" [(ngModel)]="note.type" name="type">
           <option value="Devoir">Devoir</option>
           <option value="Examen">Examen</option>
         </select>
@@ -53,17 +53,17 @@
 
       <div class="col-md-4 mb-3">
         <label>Note</label>
-        <input class="form-control" type="number" step="0.01" [(ngModel)]="note.note" name="note" required />
+        <input class="form-control" title="note" type="number" step="0.01" [(ngModel)]="note.note" name="note" required />
       </div>
 
       <div class="col-md-4 mb-3">
         <label>Coefficient</label>
-        <input class="form-control" type="number" step="0.1" [(ngModel)]="note.coefficient" name="coefficient" required />
+        <input class="form-control" title="coefficient" type="number" step="0.1" [(ngModel)]="note.coefficient" name="coefficient" required />
       </div>
 
       <div class="col-md-6 mb-3">
         <label>Période</label>
-        <select class="form-select" [(ngModel)]="note.periode" name="periode" required>
+        <select class="form-select" title="periode" [(ngModel)]="note.periode" name="periode" required>
           <option value="semestre 1">Semestre 1</option>
           <option value="semestre 2">Semestre 2</option>
         </select>
@@ -71,7 +71,7 @@
 
       <div class="col-md-6 mb-3">
         <label>Appréciation</label>
-        <textarea class="form-control" [(ngModel)]="note.appreciation" name="appreciation"></textarea>
+        <textarea class="form-control" title="appréciation" [(ngModel)]="note.appreciation" name="appreciation"></textarea>
       </div>
     </div>
 

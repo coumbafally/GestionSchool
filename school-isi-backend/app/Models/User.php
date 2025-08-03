@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
+use App\Mail\WelcomeUserMail;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -82,5 +84,15 @@ public function enseignant()
 {
     return $this->hasOne(Enseignant::class);
 }
+
+public function sendWelcomeMail($password)
+{
+    Mail::to($this->email)->send(new WelcomeUserMail(
+        $this->prenom . ' ' . $this->nom,
+        $this->email,
+        $password
+    ));
+}
+
 }
 
