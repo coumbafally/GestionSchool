@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Classe } from './classe.model';
 
 // Interface pour les données utilisateur de base associées à un élève
@@ -23,4 +24,16 @@ export interface Eleve {
   prenom?: string;
   email?: string;
   classe_id?: number;
+=======
+export interface Eleve {
+  id?: number;
+  user_id: number;
+  classe_id: number;
+  date_naissance: string;
+  lieu_naissance: string;
+  adresse: string;
+  identifiant_eleve: string;
+  user?: any;
+  classe?: any;
+>>>>>>> origin/magou
 }

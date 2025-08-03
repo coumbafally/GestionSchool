@@ -1,0 +1,56 @@
+<aside class="sidebar">
+  <div class="logo">ISI SCHOOL</div>
+  <nav class="nav flex-column">
+    <a class="nav-link" routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link active" routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
+  </nav>
+</aside>
+
+<div class="top-header">
+  <button class="btn btn-sm text-white d-lg-none" title="toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+  <div class="user-profile">
+    <i class="bi bi-bell fs-5" routerLink="/admin/notifications" title="Notifications"></i>
+    <i class="bi bi-box-arrow-right" routerLink="/auth/login" title="Déconnexion"></i>
+    <img src="https://ui-avatars.com/api/?name=Admin&background=random&color=fff" alt="" class="user-avatar ms-3" />
+    <span class="ms-2">Administrateur</span>
+  </div>
+</div>
+
+<main>
+  <div class="container mt-5">
+    <div class="page-title">
+      <h1>Détails de l’élève</h1>
+    </div>
+
+    <div class="card shadow p-4">
+      <p><strong>Prénom :</strong> {{ eleve?.user?.prenom }}</p>
+      <p><strong>Nom :</strong> {{ eleve?.user?.nom }}</p>
+      <p><strong>Email :</strong> {{ eleve?.user?.email }}</p>
+
+      <p><strong>Classe :</strong> {{ eleve?.classe?.nom }} ({{ eleve?.classe?.niveau }})</p>
+      <p><strong>Identifiant :</strong> {{ eleve?.identifiant_eleve }}</p>
+
+      <p><strong>Date de naissance :</strong> {{ eleve?.date_naissance }}</p>
+      <p><strong>Lieu de naissance :</strong> {{ eleve?.lieu_naissance }}</p>
+      <p><strong>Adresse :</strong> {{ eleve?.adresse }}</p>
+
+      <p><strong>Documents Justificatifs :</strong></p>
+      <ul>
+        <li *ngFor="let doc of eleve?.documents">
+          <a [href]="'http://localhost:8000/storage/' + doc.chemin_fichier" target="_blank">
+            {{ doc.type_document }} - Télécharger
+          </a>
+        </li>
+      </ul>
+
+      <div class="page-title mt-4">
+        <a routerLink="/admin/eleve" class="btn-gradient">Retour</a>
+      </div>
+    </div>
+  </div>
+</main>
+

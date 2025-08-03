@@ -1,0 +1,99 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"></div>
+    <h2 id="ti">ISI SCHOOL</h2>
+ 
+  </div>
+  <nav class="nav flex-column">
+    <a class="nav-link" routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link active" routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link " routerLink="/admin/affectations"><i class=" bi bi-person-badge"></i> Affectations</a>
+    <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
+    <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
+    <a class="nav-link" routerLink="/admin/login"><i class="bi bi-clipboard-data"></i> Deconnexion</a>
+  </nav>
+</aside>
+
+
+
+  <div class="top-header">
+    <button class="btn btn-sm text-white d-lg-none" title="toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+    <div class="user-profile">
+      <i class="bi bi-bell fs-5" routerLink="/admin/notifications"  title="Notifications"></i>
+      <i class="bi bi-box-arrow-right" routerLink="/auth/login" title="Déconnexion"></i>
+      <img src="https://ui-avatars.com/api/?name=Admin&background=random&color=fff" alt="" class="user-avatar ms-3" />
+      <span class="ms-2">Administrateur</span>
+    </div>
+  </div>
+
+<main>
+  <br><br>
+  <div class="page-title">
+    <h1>Liste des Élèves</h1>
+  </div>
+
+  <div class="search-container">
+    <div class="search-box">
+      <input type="text" class="search-input" placeholder="Filtrer par niveau (ex: L1)" [(ngModel)]="niveau" />
+      <button class="search-btn" title="search" (click)="getByNiveau()">
+        <i class="bi bi-search"></i>
+      </button>
+
+      <input type="number" class="search-input" placeholder="ID de la classe" [(ngModel)]="classeId" />
+      <button class="search-btn" title="search" (click)="getByClasse()">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="page-title">
+      <h1></h1>
+      <a routerLink="/admin/eleve/create" class="btn-gradient"><i class="bi bi-plus-circle"></i> Ajouter un élève</a>
+  </div>
+
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Classe</th>
+            <th>Identifiant</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let eleve of eleves">
+            <td>{{ eleve.user?.nom }}</td>
+            <td>{{ eleve.user?.prenom }}</td>
+            <td>{{ eleve.user?.email }}</td>
+            <td>
+              <span *ngIf="eleve.classe" class="badge-class">{{ eleve.classe.nom }}</span>
+              <span *ngIf="!eleve.classe" class="text-muted">Non assigné</span>
+            </td>
+            <td>{{ eleve.identifiant_eleve }}</td>
+          <td>
+            <div class="d-flex gap-2">
+              <a [routerLink]="['/admin/eleve', eleve.id]" title="Détails" class="btn btn-sm btn-primary">
+                <i class="bi bi-eye"></i>
+              </a>
+              <a [routerLink]="['/admin/eleve/edit', eleve.id]" title="Modifier" class="btn btn-sm btn-warning text-white">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <button class="btn btn-sm btn-danger" (click)="deleteEleve(eleve.id!)" title="Supprimer">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

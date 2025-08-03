@@ -16,7 +16,11 @@ class MatiereController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'nom' => 'required|string',
+=======
+            'nom' => 'required|string|unique:matieres,nom',
+>>>>>>> origin/magou
             'coefficient' => 'required|integer|min:1'
         ]);
 

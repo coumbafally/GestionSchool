@@ -11,7 +11,11 @@ class MatiereClasseEnseignantController extends Controller
     public function index()
     {
         return response()->json(
+<<<<<<< HEAD
             MatiereClasseEnseignant::with(['classe', 'matiere', 'enseignant'])->get()
+=======
+            MatiereClasseEnseignant::with(['classe', 'matiere', 'enseignant.user'])->get()
+>>>>>>> origin/magou
         );
     }
 

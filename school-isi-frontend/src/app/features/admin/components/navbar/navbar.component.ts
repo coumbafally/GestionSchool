@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 
@@ -17,3 +18,15 @@ export class NavbarComponent {
   }
 }
 
+=======
+
+@Component({
+  selector: 'app-navbar',
+  standalone: false,
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.css'
+})
+export class NavbarComponent {
+
+}
+>>>>>>> origin/magou

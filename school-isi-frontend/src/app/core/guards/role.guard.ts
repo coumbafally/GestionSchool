@@ -10,16 +10,27 @@ export const roleGuard: CanActivateFn = (route, state) => {
   const expectedRole = route.data['role'];
 
   // On récupère le rôle réel de l'utilisateur
+<<<<<<< HEAD
   const currentRole = authService.getUserRole(); // Assurez-vous que cette méthode existe dans votre AuthService !
 
   // On compare
   if (currentRole === expectedRole) {
     // C'est bon, on autorise.
+=======
+  const currentRole = authService.getUserRole();
+
+  // On compare
+  if (currentRole === expectedRole) {
+>>>>>>> origin/magou
     return true;
   }
 
   // Sinon, accès refusé.
   console.error(`Accès refusé par roleGuard. Rôle attendu : "${expectedRole}", Rôle actuel : "${currentRole}".`);
+<<<<<<< HEAD
   router.navigate(['/auth/login']); // On le renvoie au login
+=======
+  router.navigate(['/auth/login']);
+>>>>>>> origin/magou
   return false;
 };

@@ -8,7 +8,11 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+<<<<<<< HEAD
       imports: [NavbarComponent]
+=======
+      declarations: [NavbarComponent]
+>>>>>>> origin/magou
     })
     .compileComponents();
 

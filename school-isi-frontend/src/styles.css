@@ -1,1 +1,257 @@
 /* You can add global styles to this file, and also import other style files */
+<<<<<<< HEAD
+=======
+:root {
+  --primary-dark: #041d4e;
+  --primary: #083d77;
+  --primary-light: #2c78c9;
+  --secondary-light: #5fa8d3;
+  --text-light: #f8f9fa;
+  --text-dark: #212529;
+  --sidebar-bg: linear-gradient(180deg, var(--primary-dark), var(--primary));
+  --header-bg: linear-gradient(90deg, var(--primary), var(--primary-light));
+  --card-bg: rgba(248, 249, 250, 0.95);
+}
+
+body {
+  margin: 0;
+  background-color: #f5f7fa;
+  font-family: "Segoe UI", sans-serif;
+}
+
+
+/*sidebar */
+
+
+.profile {
+  text-align: center;
+}
+
+.profile .avatar {
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+#ti{
+    color: var(--secondary-light);
+}
+
+.sidebar {
+  position: fixed;
+  top: 2px; bottom: 0; left: 0;
+  width: 265px;
+  background: var(--sidebar-bg);
+  box-shadow: 2px 0 15px rgba(0,0,0,0.05);
+  padding-top: 20px;
+  transition: all 0.3s;
+  z-index: 900;
+}
+
+.sidebar .nav-link {
+  color: var(--text-light);
+  padding: 10px 20px;
+  margin: 5px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+  background: var(--secondary-light);
+  color: var(--primary);
+  transform: translateX(5px);
+}
+
+.sidebar .bi {
+  font-size:1.2rem;
+  margin-right:12px;
+  vertical-align:middle;
+}
+
+/* Main content */
+main {
+  margin-left: 290px;
+  padding: 2rem;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* Top header */
+.top-header {
+  background: var(--header-bg);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+}
+
+.user-profile {
+  display: flex;
+  align-items: right;
+  gap: 1rem;
+  margin-left: 77%;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Search & Filter */
+    .search-container {
+      background: white;
+      padding: 0.3rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 0.25rem rgba(44, 120, 201, 0.25);
+    }
+
+    .search-btn {
+      background: grey;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.5rem 1.25rem;
+      transition: all 0.3s;
+    }
+    .search-btn i {
+        color: white;
+    }
+    .search-btn:hover {
+      background: var(--primary-dark);
+    }
+
+      /* Page Title */
+    .page-title {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn-gradient {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      border: none;
+      text-decoration: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 50px;
+      font-weight: 500;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-gradient:hover {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Table Styles */
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+      overflow:hidden;
+      
+    }
+
+    .table-responsive {
+      border-radius: 10px;
+      overflow: hidden;
+      max-height: 500px;
+      overflow-y: auto;
+      overflow-x: auto;
+      position: fixed;
+    }
+    .table thead th {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      z-index: 2;
+    }
+    .table thead {
+      background: var(--secondary-light);
+      color: white;
+    }
+
+    .table th {
+      padding: 1rem;
+      font-weight: 500;
+      border: none;
+    }
+
+    .table td {
+      padding: 0.75rem 1rem;
+      vertical-align: middle;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .table tbody tr:hover {
+      background-color: rgba(8, 61, 119, 0.03);
+    }
+
+    /* Badges */
+    .badge-class {
+      background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+      color: white;
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+
+  main {
+    margin-left: 0;
+  }
+}
+>>>>>>> origin/magou

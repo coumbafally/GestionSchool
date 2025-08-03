@@ -30,6 +30,7 @@ export class LoginComponent {
     });
   } 
 
+<<<<<<< HEAD
   onSubmit(): void {
     if (this.loginForm.invalid) { return; }
     this.errorMessage = null;
@@ -45,6 +46,47 @@ export class LoginComponent {
       }
     });
   } 
+=======
+ onSubmit(): void {
+  if (this.loginForm.invalid) return;
+
+  this.errorMessage = null;
+
+  this.authService.login(this.loginForm.value).subscribe({
+    next: (response: any) => {
+      console.log('Connexion réussie', response);
+      const role = response.user.role;
+
+      localStorage.setItem('token', response.access_token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+
+      // Redirection selon le rôle
+      switch (role) {
+        case 'admin':
+          this.router.navigate(['/admin/dashboard']);
+          break;
+        case 'enseignant':
+          this.router.navigate(['/teacher']); 
+          break;
+        case 'tuteur':
+          this.router.navigate(['/tuteur']);
+          break;
+        case 'eleve':
+          this.router.navigate(['/student']);
+          break;
+        default:
+          this.errorMessage = 'Rôle non reconnu.';
+      }
+
+      this.loginForm.reset();
+    },
+    error: (err: any) => {
+      console.error('Erreur de connexion', err);
+      this.errorMessage = 'Email ou mot de passe incorrect.';
+    }
+  });
+}
+>>>>>>> origin/magou
 
   
 }

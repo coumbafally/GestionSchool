@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Classe } from '../../../core/models/classe.model';
 
+<<<<<<< HEAD
 @Injectable({
   providedIn: 'root'
 })
@@ -26,4 +27,15 @@ export class ClasseService {
   deleteClasse(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+=======
+
+
+@Injectable({ providedIn: 'root' })
+export class ClasseService {
+    private apiUrl = 'http://localhost:8000/api/admin/classes';
+    constructor(private http: HttpClient) {}
+    getAll(): Observable<any[]> {
+        return this.http.get<any[]>(this.apiUrl);
+    }
+>>>>>>> origin/magou
 }

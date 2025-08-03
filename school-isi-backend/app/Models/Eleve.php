@@ -6,8 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Eleve extends Model
 {
+<<<<<<< HEAD
      use HasFactory;
     protected $fillable = ['user_id', 'classe_id', 'date_naissance', 'lieu_naissance', 'adresse', 'identifiant_eleve'];
+=======
+    use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'classe_id',
+        'date_naissance',
+        'lieu_naissance',
+        'adresse',
+        'identifiant_eleve'
+    ];
+>>>>>>> origin/magou
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -20,7 +32,13 @@ class Eleve extends Model
     }
     public function documents() {
         return $this->hasMany(Document::class);
+<<<<<<< HEAD
     }
+=======
+        
+    }
+    
+>>>>>>> origin/magou
     public function notes() {
         return $this->hasMany(Note::class);
     }

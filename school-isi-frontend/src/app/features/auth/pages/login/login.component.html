@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="login-container">
   <h2>Connexion</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -25,4 +26,40 @@
 
     
   </form>
+=======
+<div class="login-wrapper">
+  <div class="login-box">
+    <div class="logo-container">
+      <img src="../../../../../assets/img/logo-isi.jpg" alt="ISI School Logo" width="60" />
+      <h1>Bienvenue à ISI School</h1>
+      <p>Votre portail scolaire sécurisé</p>
+    </div>
+
+    <h2>Connexion</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error">
+          Email invalide.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" formControlName="password" />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+          Le mot de passe doit contenir au moins 6 caractères.
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+>>>>>>> origin/magou
 </div>

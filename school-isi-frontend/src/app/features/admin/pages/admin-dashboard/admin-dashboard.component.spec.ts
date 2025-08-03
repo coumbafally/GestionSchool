@@ -8,7 +8,11 @@ describe('AdminDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+<<<<<<< HEAD
       imports: [AdminDashboardComponent]
+=======
+      declarations: [AdminDashboardComponent]
+>>>>>>> origin/magou
     })
     .compileComponents();
 

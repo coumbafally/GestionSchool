@@ -27,6 +27,10 @@ yarn-error.log
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
+<<<<<<< HEAD
+=======
+.vs/
+>>>>>>> origin/magou
 
 # Miscellaneous
 /.angular/cache

@@ -9,15 +9,28 @@ import { tap } from 'rxjs/operators';
 })
 export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api/auth';
+<<<<<<< HEAD
   private readonly TOKEN_NAME = 'access_token';
  private userSubject = new BehaviorSubject<any | null>(null);
+=======
+
+  private readonly TOKEN_NAME = 'access_token';
+  
+  private userSubject = new BehaviorSubject<any | null>(null);
+>>>>>>> origin/magou
   public user$ = this.userSubject.asObservable(); 
 
   constructor(private http: HttpClient, private router: Router) {
       this.loadInitialUser();
+<<<<<<< HEAD
    }
 
    private loadInitialUser(): void {
+=======
+  }
+
+  private loadInitialUser(): void {
+>>>>>>> origin/magou
     const user = this.getUser();
     if (user) {
       this.userSubject.next(user);
@@ -29,7 +42,11 @@ export class AuthService {
         const user = (response as any).user;
         this.setToken((response as any).access_token);
         this.setUser(user);
+<<<<<<< HEAD
         this.userSubject.next(user); // On met à jour le BehaviorSubject
+=======
+        this.userSubject.next(user); 
+>>>>>>> origin/magou
       })
     );
   }
@@ -95,6 +112,7 @@ export class AuthService {
 
   
 public getUserRole(): string | null {
+<<<<<<< HEAD
   const user = this.getUser();
   if (user && user.role) {
       return user.role; 
@@ -104,4 +122,24 @@ public getUserRole(): string | null {
   isAuthenticated(): boolean {
     return this.getToken() !== null;
   }
+=======
+  // On récupère l'objet utilisateur complet
+  const user = this.getUser();
+
+  // On vérifie que l'utilisateur existe ET qu'il a une propriété 'role'
+  if (user && user.role) {
+      // On retourne directement la valeur de cette propriété
+      return user.role; // ex: "admin", "enseignant", etc.
+  }
+  
+  // Si on ne trouve rien, on retourne null
+  return null;
+}
+isAuthenticated(): boolean {
+  const token = this.getToken();
+  console.log('isAuthenticated check: token =', token);
+  return token !== null;
+}
+
+>>>>>>> origin/magou
 }

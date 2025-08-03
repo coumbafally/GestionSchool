@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Log;
+=======
+>>>>>>> origin/magou
 
 class AuthController extends Controller
 {
@@ -54,6 +57,10 @@ class AuthController extends Controller
             'password' => Hash::make($request->get('password')),
             'role' => $request->get('role'),
         ]);
+<<<<<<< HEAD
+=======
+        
+>>>>>>> origin/magou
 
         return response()->json([
             'message' => 'User successfully registered',

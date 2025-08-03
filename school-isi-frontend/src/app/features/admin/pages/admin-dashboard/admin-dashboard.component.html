@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="dashboard-page">
   <header class="page-header">
     <h1>Tableau de Bord</h1>
@@ -33,4 +34,61 @@
     </div>
 
   </section>
+=======
+<app-navbar></app-navbar>
+
+<div class="main-content" style="margin-left: 260px; padding: 2rem;">
+  <div class="container">
+    <h2 class="text-center mb-4 bi bi-pencil">ISI SCHOOL</h2>
+
+    <p class="text-center">VOTRE PORTAIL SCOLAIRE INTERACTIF</p>
+    
+  </div>
+<div class="cards">
+  <div class="card " routerLink="/admin/enseignants" style="cursor: pointer;">
+    <p class="label">Enseignants</p>
+    <h3>{{ stats.enseignants }}</h3>
+  </div>
+
+  <div class="card" routerLink="/admin/eleve" style="cursor: pointer;">
+    <p class="label">Élèves inscrits</p>
+    <h3>{{ stats.eleves }}</h3>
+  </div>
+
+  <div class="card" routerLink="/admin/matieres" style="cursor: pointer;">
+    <p class="label">Matières</p>
+    <h3>{{ stats.matieres }}</h3>
+  </div>
+
+  <div class="card" routerLink="/admin/affectations" style="cursor: pointer;">
+    <p class="label">Affectations</p>
+    <h3>{{ stats.affectations }}</h3>
+  </div>
+</div>
+
+  <div class="charts">
+    <div class="bar-chart">
+      <p class="label">Évolution annuelle</p>
+      <div class="bars">
+        <div class="bar" style="height: 40%"></div>
+        <div class="bar" style="height: 60%"></div>
+        <div class="bar" style="height: 45%"></div>
+        <div class="bar" style="height: 70%"></div>
+        <div class="bar" style="height: 50%"></div>
+        <div class="bar" style="height: 90%"></div>
+      </div>
+    </div>
+
+    <div class="donut-chart">
+      <div class="circle">
+        <span>75%</span>
+      </div>
+      <ul>
+        <li>Remplissage des classes</li>
+        <li>Progrès enseignants</li>
+        <li>Modules actifs</li>
+      </ul>
+    </div>
+  </div>
+>>>>>>> origin/magou
 </div>

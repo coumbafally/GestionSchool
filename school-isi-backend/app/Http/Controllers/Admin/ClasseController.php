@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Classe;
 use Illuminate\Http\Request;
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Validator;
 
 class ClasseController extends Controller
@@ -78,5 +79,15 @@ class ClasseController extends Controller
     }
     $classe->delete();
     return response()->json(null, 204);
+=======
+class ClasseController extends Controller
+{
+    /**
+     * Récupère toutes les classes.
+     */
+    public function index()
+    {
+        return response()->json(Classe::all());
+>>>>>>> origin/magou
     }
 }
