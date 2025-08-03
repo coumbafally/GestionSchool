@@ -6,6 +6,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ClasseComponent } from './pages/classe/classe.component';
+import { StudentComponent } from './pages/student/student.component';
 @NgModule({
   declarations: [
 
@@ -15,7 +16,8 @@ import { ClasseComponent } from './pages/classe/classe.component';
     ReactiveFormsModule,
     AdminRoutingModule,
     NavbarComponent,
-    ClasseComponent
+    ClasseComponent,
+    StudentComponent
   ]
 })
 export class AdminModule { }

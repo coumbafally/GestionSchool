@@ -1,0 +1,112 @@
+<div class="management-page">
+  <header class="page-header">
+    <h1>Gestion des Élèves</h1>
+  </header>
+
+  <!-- Formulaire pour l'ajout et la modification d'un élève -->
+  <section class="form-section card">
+    <h2>{{ isEditing ? 'Modifier le Profil de l\'Élève' : 'Inscrire un nouvel Élève' }}</h2>
+    
+    <form [formGroup]="eleveForm" (ngSubmit)="onSubmit()">
+      
+      <!-- Section Informations Personnelles (Compte Utilisateur) -->
+      <fieldset>
+        <legend>Informations Personnelles</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom">Nom de famille</label>
+            <input id="nom" type="text" formControlName="nom">
+          </div>
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input id="prenom" type="text" formControlName="prenom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email de contact (Parent/Élève)</label>
+          <input id="email" type="email" formControlName="email">
+        </div>
+      </fieldset>
+
+      <!-- Section Informations Scolaires (Profil Élève) -->
+      <fieldset>
+        <legend>Informations Scolaires et Civiles</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date_naissance">Date de naissance</label>
+            <input id="date_naissance" type="date" formControlName="date_naissance">
+          </div>
+          <div class="form-group">
+            <label for="lieu_naissance">Lieu de naissance</label>
+            <input id="lieu_naissance" type="text" formControlName="lieu_naissance">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="adresse">Adresse</label>
+          <textarea id="adresse" formControlName="adresse" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="classe_id">Classe</label>
+          <!-- Liste déroulante pour les classes -->
+          <select id="classe_id" formControlName="classe_id">
+            <option [value]="" disabled>-- Choisir une classe --</option>
+            <option *ngFor="let classe of classes" [value]="classe.id">{{ classe.nom }}</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <!-- Section Documents -->
+      <fieldset>
+        <legend>Document Justificatif</legend>
+        <div class="form-group">
+          <label for="justificatif-input">Joindre un fichier (PDF, JPG, PNG - max 5Mo)</label>
+          <input id="justificatif-input" type="file" (change)="onFileChange($event)">
+          <small *ngIf="isEditing">Laisser vide pour ne pas modifier le document existant.</small>
+        </div>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="eleveForm.invalid">
+          {{ isEditing ? 'Mettre à jour' : 'Inscrire l\'Élève' }}
+        </button>
+        <button type="button" (click)="resetForm()" *ngIf="isEditing">Annuler</button>
+      </div>
+    </form>
+    
+    <div *ngIf="errorMessage" class="error-message">
+      <p><strong>Erreur :</strong> {{ errorMessage }}</p>
+    </div>
+  </section>
+
+  <!-- Tableau pour lister les élèves existants -->
+  <section class="table-section card">
+    <h2>Liste des Élèves</h2>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>ID Élève</th>
+          <th>Nom Complet</th>
+          <th>Email</th>
+          <th>Classe</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let eleve of eleves">
+          <td>{{ eleve.identifiant_eleve }}</td>
+          <td>{{ eleve.user?.prenom }} {{ eleve.user?.nom }}</td>
+          <td>{{ eleve.user?.email }}</td>
+          <td>{{ eleve.classe?.nom || 'Non assigné' }}</td>
+          <td class="action-buttons">
+            <button (click)="editEleve(eleve)">Modifier</button>
+            <button class="delete-btn" (click)="deleteEleve(eleve.id)">Supprimer</button>
+          </td>
+        </tr>
+        <tr *ngIf="eleves.length === 0">
+          <td colspan="5" style="text-align: center;">Aucun élève trouvé.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
