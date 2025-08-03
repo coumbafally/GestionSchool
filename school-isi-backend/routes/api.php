@@ -109,3 +109,4 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
 Route::middleware(['auth:api', 'can:is-eleve'])->prefix('eleve')->group(function () {
     Route::get('bulletins', [EleveController::class, 'mesBulletins']);
 });
+

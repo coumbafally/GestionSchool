@@ -14,7 +14,9 @@ class DashboardController extends Controller
     public function stats()
     {
         return response()->json([
-            'enseignants' => Enseignant::count(),
+            'enseignants' => Enseignant::whereHas('user', function ($query) {
+                $query->where('role', 'enseignant');
+            })->count(),
             'eleves' => Eleve::count(),
             'classes' => Classe::count(),
             'matieres' => Matiere::count(),

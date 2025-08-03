@@ -53,6 +53,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->get('password')),
             'role' => $request->get('role'),
         ]);
+        
 
         return response()->json([
             'message' => 'User successfully registered',

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Enseignant;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\WelcomeUserMail;
+use Illuminate\Support\Facades\Mail;
 
 class EnseignantController extends Controller
 {
@@ -19,21 +22,36 @@ class EnseignantController extends Controller
     return response()->json($enseignants);
 }
 
-   public function store(Request $request)
+public function store(Request $request)
 {
     try {
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'matricule' => 'required|string|max:255|unique:enseignants'
         ]);
 
+        // Générer un matricule unique
+        do {
+            $matricule = 'ENS-ISI' . now()->year . '-' . rand(100, 999);
+        } while (Enseignant::where('matricule', $matricule)->exists());
+
+        $validated['matricule'] = $matricule;
+
+        // Création enseignant
         $enseignant = Enseignant::create($validated);
+
+        // Envoi email de bienvenue
+        $user = User::findOrFail($validated['user_id']);
+      //  $validated = $request->only(['user_id']);
+
+        $user->sendWelcomeMail('Passer@1');
+
         return response()->json($enseignant, 201);
 
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
 }
+
 
 
     public function show($id)
@@ -71,6 +89,8 @@ class EnseignantController extends Controller
         $enseignant->delete();
         return response()->json(['message' => 'Enseignant supprimé']);
     }
+
+ 
 }
 
 
