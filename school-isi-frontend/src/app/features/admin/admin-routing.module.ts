@@ -9,10 +9,12 @@ import { EleveDetailsComponent } from './pages/student/pages/eleve-details/eleve
 import { EnseignantFormComponent } from './pages/teacher/pages/enseignant-form/enseignant-form.component';
 import { MatiereFormComponent } from './pages/matiere/pages/matiere-form/matiere-form.component';
 import { AffectationFormComponent } from './pages/affectation/pages/affectation-form/affectation-form.component';
+import { NoteClasseComponent } from './pages/note/pages/note-classe/note-classe.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: AdminDashboardComponent, canActivate: [authGuard] },
+  { path: 'stats', component: AdminDashboardComponent, canActivate: [authGuard] }, 
   { path: 'eleve', component: EleveListComponent, canActivate: [authGuard] },
   { path: 'tuteurs', component: ListeTuteurComponent, canActivate: [authGuard] },
   { path: 'eleve/create', component: EleveFormComponent, canActivate: [authGuard] },
@@ -28,7 +30,12 @@ const routes: Routes = [
   { path: 'affectations', component: AffectationFormComponent, canActivate: [authGuard] },
   { path: 'affectations/create', component: AffectationFormComponent, canActivate: [authGuard] },
   { path: 'affectations/edit/:id', component: AffectationFormComponent, canActivate: [authGuard] },
+  { path: 'notes', component: NoteClasseComponent, canActivate: [authGuard] },
+  { path: 'notes/create', component: NoteClasseComponent, canActivate: [authGuard] },
+  { path: 'notes/edit/:id', component: NoteClasseComponent, canActivate: [authGuard] },
+  { path: 'notes/classe', component: NoteClasseComponent, canActivate: [authGuard] },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -1,0 +1,42 @@
+<aside class="sidebar">
+  <div class="profile text-center py-3">
+    <div class="avatar mb-2">
+      <img src="https://ui-avatars.com/api/?name=Enseignant&background=random&color=fff" class="rounded-circle" width="60" />
+    </div>
+    <h4 class="text-white">ISI SCHOOL</h4>
+  </div>
+  <nav class="nav flex-column px-3">
+    <a class="nav-link " routerLink="/teacher/dashboard"><i class="bi bi-house-door"></i> Accueil</a>
+    <a class="nav-link" routerLink="/teacher/eleves"><i class="bi bi-people-fill"></i> Mes Élèves</a>
+    <a class="nav-link" routerLink="/teacher/matieres"><i class="bi bi-journal-bookmark"></i> Mes Matières</a>
+    <a class="nav-link active" routerLink="/teacher/mes-classes"><i class="bi bi-building"></i> Mes affectations</a>
+    <a class="nav-link" routerLink="/teacher/notes"><i class="bi bi-clipboard-data"></i> Mes Notes</a>
+    <a class="nav-link text-danger" routerLink="/auth/login"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
+  </nav>
+</aside>
+
+
+<main>
+    <div class="container">
+  <h2>Mes Classes et Matières</h2>
+
+  <div *ngFor="let aff of affectations" class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ aff.classe.libelle }}</h5>
+      <p class="card-text">Matière : {{ aff.matiere.nom }}</p>
+      <button (click)="afficherEleves(aff.classe.id)">Voir les élèves</button>
+
+     <div *ngIf="elevesParClasse[aff.classe.id]">
+  <h6>Élèves :</h6>
+  <ul>
+    <li *ngFor="let eleve of elevesParClasse[aff.classe.id] || []">
+      {{ eleve.nom_complet }} - {{ eleve.email }}
+    </li>
+  </ul>
+</div>
+
+    </div>
+  </div>
+</div>
+
+</main>

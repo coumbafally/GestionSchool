@@ -1,0 +1,35 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"></div>
+    <h2 id="ti">ISI SCHOOL</h2>
+  </div>
+  <nav class="nav flex-column">
+    <a class="nav-link" routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link" routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link" routerLink="/admin/affectations"><i class="bi bi-building"></i> Affectations</a>
+    <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> Tuteurs</a>
+    <a class="nav-link active" routerLink="/admin/notes/classe"><i class="bi bi-clipboard-data"></i> Notes</a>
+  </nav>
+</aside>
+
+<main class="main-content">
+  <div class="container mt-4">
+    <h2>Sélectionnez une classe pour ajouter une note</h2>
+    <div class="row">
+      <div *ngFor="let classe of classes" class="col-md-4 mb-3">
+        <div >
+          <h5>{{ classe.nom }} ({{ classe.niveau }})</h5>
+          <button class="btn btn-primary" (click)="goToNoteForm(classe.id)">Ajouter une note</button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mb-3">
+      <a routerLink="/admin/notes/classe" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Retour aux notes par classe
+      </a>
+    </div>
+  </div>
+</main>

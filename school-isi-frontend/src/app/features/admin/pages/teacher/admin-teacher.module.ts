@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { TeacherRoutingModule } from './teacher-routing.module';
+import { TeacherRoutingModule } from './admin-teacher-routing.module';
 
 import { FormsModule, NgModel } from '@angular/forms';
 import { RouterModule } from '@angular/router';

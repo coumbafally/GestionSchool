@@ -3,21 +3,21 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NoteRoutingModule } from './note-routing.module';
-import { ListeNoteComponent } from './pages/liste-note/liste-note.component';
-import { AjouterNoteComponent } from './pages/ajouter-note/ajouter-note.component';
-import { EditerNoteComponent } from './pages/editer-note/editer-note.component';
+import { NoteFormComponent } from './pages/note-form/note-form.component';
+import { NoteClasseComponent } from './pages/note-classe/note-classe.component';
 
 @NgModule({
   declarations: [
-    ListeNoteComponent,
-    AjouterNoteComponent,
-    EditerNoteComponent
+ 
   ],
   imports: [
+    NoteFormComponent,
+    NoteClasseComponent,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NoteRoutingModule
+    NoteRoutingModule,
+    
   ]
 })
 export class NoteModule {}

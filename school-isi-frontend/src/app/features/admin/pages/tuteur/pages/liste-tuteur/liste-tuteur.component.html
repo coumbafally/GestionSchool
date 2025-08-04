@@ -1,23 +1,76 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"></div>
+    <h2 id="ti">ISI SCHOOL</h2>
+    <!--<p id="ti">Admin</p> -->
+  </div>
+  <nav class="nav flex-column">
+    <a class="nav-link" routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link " routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link active" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
+    <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
+  </nav>
+</aside>
 
-<table>
-    <thead>
-        <tr>
-        <th>ID</th>
-        <th>Téléphone</th>
-        <th>Élève</th>
-        <th>User</th>
-        <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let tuteur of tuteurs">
-        <td>{{ tuteur.id }}</td>
-        <td>{{ tuteur.numero_tel }}</td>
-        <td>{{ tuteur.eleve?.nom }}</td>
-        <td>{{ tuteur.user?.nom }} {{ tuteur.user?.prenom }}</td>
-        <td>
-            <button (click)="deleteTuteur(tuteur.id!)">Supprimer</button>
-        </td>
-        </tr>
-    </tbody>
-</table>
+
+  <div class="top-header">
+    <button class="btn btn-sm text-white d-lg-none" title="toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+    <div class="user-profile">
+      <i class="bi bi-bell fs-5" routerLink="/admin/notifications"  title="Notifications"></i>
+      <i class="bi bi-box-arrow-right" routerLink="/auth/login" title="Déconnexion"></i>
+      <img src="https://ui-avatars.com/api/?name=Admin&background=random&color=fff" alt="" class="user-avatar ms-3" />
+      <span class="ms-2">Administrateur</span>
+    </div>
+  </div>
+
+<main>
+  <br><br>
+  <div class="page-title">
+    <h1>Liste des tuteurs</h1>
+  </div>
+
+  
+  <div class="page-title">
+      <h1></h1>
+      <a routerLink="/admin/tuteurs/create" class="btn-gradient"><i class="bi bi-plus-circle"></i> Ajouter un tuteur</a>
+  </div>
+
+  <div class="card">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Prénom Nom</th>
+            <th>Téléphone</th>
+            <th>Élève</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tuteur of tuteurs">
+              <td>{{ tuteur.user?.nom }} {{ tuteur.user?.prenom }}</td>
+              <td>{{ tuteur.numero_tel }}</td>
+              <td>{{ tuteur.eleve?.user?.prenom }} {{ tuteur.eleve?.user?.nom }}</td>
+            <td>
+            <div class="d-flex gap-2">
+              <a [routerLink]="['/admin/tuteurs', tuteur.id]" title="Détails" class="btn btn-sm btn-primary">
+                <i class="bi bi-eye"></i>
+              </a>
+              <a [routerLink]="['/admin/tuteurs/edit', tuteur.id]" title="Modifier" class="btn btn-sm btn-warning text-white">
+                <i class="bi bi-pencil"></i>
+              </a>
+              <button class="btn btn-sm btn-danger" (click)="deleteTuteur(tuteur.id!)" title="Supprimer">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

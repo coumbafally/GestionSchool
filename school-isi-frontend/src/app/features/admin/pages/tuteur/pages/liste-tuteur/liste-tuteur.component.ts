@@ -23,7 +23,7 @@ export class ListeTuteurComponent implements OnInit {
 
   deleteTuteur(id: number) {
     if (confirm('Supprimer ce tuteur ?')) {
-      this.tuteurService.deleteTuteur(id).subscribe(() => {
+      this.tuteurService.delete(id).subscribe(() => {
         this.tuteurs = this.tuteurs.filter(t => t.id !== id);
       });
     }

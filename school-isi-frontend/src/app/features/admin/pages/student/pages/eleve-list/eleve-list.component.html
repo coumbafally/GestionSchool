@@ -2,22 +2,18 @@
   <div class="profile">
     <div class="avatar"></div>
     <h2 id="ti">ISI SCHOOL</h2>
- 
+    <!--<p id="ti">Admin</p> -->
   </div>
   <nav class="nav flex-column">
-    <a class="nav-link" routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link " routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
     <a class="nav-link" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
     <a class="nav-link active" routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
     <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
     <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
-    <a class="nav-link " routerLink="/admin/affectations"><i class=" bi bi-person-badge"></i> Affectations</a>
     <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
-    <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
-    <a class="nav-link" routerLink="/admin/login"><i class="bi bi-clipboard-data"></i> Deconnexion</a>
+    <a class="nav-link" routerLink="/admin/notes"><i class="bi bi-clipboard-data"></i> Notes</a>
   </nav>
 </aside>
-
-
 
   <div class="top-header">
     <button class="btn btn-sm text-white d-lg-none" title="toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
@@ -42,7 +38,7 @@
         <i class="bi bi-search"></i>
       </button>
 
-      <input type="number" class="search-input" placeholder="ID de la classe" [(ngModel)]="classeId" />
+      <input type="text" class="search-input" placeholder="Nom de la classe" [(ngModel)]="classeNom" />
       <button class="search-btn" title="search" (click)="getByClasse()">
         <i class="bi bi-search"></i>
       </button>

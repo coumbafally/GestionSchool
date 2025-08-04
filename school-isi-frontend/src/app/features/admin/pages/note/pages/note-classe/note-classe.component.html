@@ -1,0 +1,94 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"></div>
+    <h2 id="ti">ISI SCHOOL</h2>
+    <!--<p id="ti">Admin</p> -->
+  </div>
+  <nav class="nav flex-column">
+    <a class="nav-link " routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link " routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
+    <a class="nav-link active" routerLink="/admin/notes/classe"><i class="bi bi-clipboard-data"></i> Notes</a>
+  </nav>
+</aside>
+
+<main class="main-content">
+  <div class="container mt-4">
+    <h2>Notes par classe et période</h2>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label>Classe</label>
+        <select class="form-select" title="classe" [(ngModel)]="selectedClasseId">
+          <option [ngValue]="null">-- Sélectionner une classe --</option>
+          <option *ngFor="let c of classes" [value]="c.id">{{ c.nom }} ({{ c.niveau }})</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label>Période</label>
+        <select class="form-select" title="periode" [(ngModel)]="periode" name="periode" required>
+          <option value="">-- Sélectionner une période --</option>
+          <option value="semestre 1">Semestre 1</option>
+          <option value="semestre 2">Semestre 2</option>
+        </select>
+      </div>
+
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-primary w-100" (click)="loadNotes()">Charger les notes</button>
+      </div>
+    </div>
+
+    <!-- <div class="d-flex justify-content-end mb-3">
+      <a routerLink="/admin/notes/create/select-classe" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Ajouter une note
+      </a>
+    </div> -->
+
+    <div *ngIf="!selectedClasseId" class="alert alert-info">
+      Veuillez sélectionner une classe pour afficher les notes.
+    </div>
+
+    <div *ngIf="notes.length > 0">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Élève</th>
+            <th>Matière</th>
+            <th>Enseignant</th>
+            <th>Type</th>
+            <th>Note</th>
+            <th>Coef</th>
+            <th>Appréciation</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let eleve of getUniqueEleves()">
+            <tr *ngFor="let n of getNotesForEleve(eleve.id!)">
+              <td>{{ eleve.user.prenom }} {{ eleve.user.nom }}</td>
+              <td>{{ n.matiere_classe_enseignant?.matiere?.nom }}</td>
+              <td>{{ n.matiere_classe_enseignant?.enseignant?.user?.prenom }} {{ n.matiere_classe_enseignant?.enseignant?.user?.nom }}</td>
+              <td>{{ n.type }}</td>
+              <td>{{ n.note }}</td>
+              <td>{{ n.coefficient }}</td>
+              <td>{{ n.appreciation }}</td>
+              <td>
+                <a [routerLink]="['/admin/notes/edit', n.id]" class="btn btn-sm btn-warning text-white" title="Modifier">
+                  <i class="bi bi-pencil"></i>
+                </a>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="notes.length === 0 && selectedClasseId && periode" class="alert alert-info mt-3">
+      Aucune note trouvée pour cette classe et cette période.
+    </div>
+  </div>
+</main>

@@ -1,0 +1,98 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar"></div>
+    <h2 id="ti">ISI SCHOOL</h2>
+    <!--<p id="ti">Admin</p> -->
+  </div>
+  <nav class="nav flex-column">
+    <a class="nav-link" routerLink="/admin/dashboard"><i class="bi bi-house-door"></i> Tableau de bord</a>
+    <a class="nav-link" routerLink="/admin/enseignants"><i class="bi bi-person-badge"></i> Enseignants</a>
+    <a class="nav-link " routerLink="/admin/eleve"><i class="bi bi-people-fill"></i> Élèves</a>
+    <a class="nav-link" routerLink="/admin/matieres"><i class="bi bi-journal-bookmark"></i> Matières</a>
+    <a class="nav-link" routerLink="/admin/classes"><i class="bi bi-building"></i> Classes</a>
+    <a class="nav-link active" routerLink="/admin/tuteurs"><i class="bi bi-building"></i> tuteurs</a>
+    <a class="nav-link" routerLink="/admin/note"><i class="bi bi-clipboard-data"></i> Notes</a>
+  </nav>
+</aside>
+
+
+  <div class="top-header">
+    <button class="btn btn-sm text-white d-lg-none" title="toggle" id="sidebarToggle"><i class="bi bi-list"></i></button>
+    <div class="user-profile">
+      <i class="bi bi-bell fs-5" routerLink="/admin/notifications"  title="Notifications"></i>
+      <i class="bi bi-box-arrow-right" routerLink="/auth/login" title="Déconnexion"></i>
+      <img src="https://ui-avatars.com/api/?name=Admin&background=random&color=fff" alt="" class="user-avatar ms-3" />
+      <span class="ms-2">Administrateur</span>
+    </div>
+  </div>
+
+  <main class="main-content">
+<div class="form-wrapper container mt-5">
+  <!-- Inscription utilisateur -->
+  <div class="card shadow p-4 mb-4" *ngIf="!isEditMode">
+    <h3>Inscription de l'utilisateur tuteur</h3>
+    <form (ngSubmit)="onRegister()">
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label>Nom</label>
+          <input class="form-control" title="Nom" [(ngModel)]="newUser.nom" name="nom" required />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label>Prénom</label>
+          <input class="form-control" title="Prénom" [(ngModel)]="newUser.prenom" name="prenom" required />
+        </div>
+        <div class="col-md-4 mb-3">
+          <label>Email</label>
+          <input class="form-control" type="email" title="Email" [(ngModel)]="newUser.email" name="email" required />
+        </div>
+      </div>
+      <input type="hidden" [(ngModel)]="newUser.password" name="password" />
+      <input type="hidden" [(ngModel)]="newUser.password_confirmation" name="password_confirmation" />
+      <input type="hidden" [(ngModel)]="newUser.role" name="role" />
+      <button type="submit" class="btn btn-primary">Créer l'utilisateur</button>
+    </form>
+  </div>
+
+  <!-- Formulaire Tuteur -->
+  <div class="card shadow p-4">
+    <h2>{{ isEditMode ? 'Modifier' : 'Créer' }} un tuteur</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div *ngIf="registeredTuteurInfo" class="alert alert-success">
+        Utilisateur inscrit : {{ registeredTuteurInfo.prenom }} {{ registeredTuteurInfo.nom }}
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label>Numéro de téléphone</label>
+          <input class="form-control" [(ngModel)]="tuteur.numero_tel" title="Numéro de téléphone" name="numero_tel" required />
+        </div>
+
+        <div class="col-md-6">
+          <label>Élève assigné</label>
+          <select class="form-select" [(ngModel)]="tuteur.eleve_id" title="Élève assigné" name="eleve_id" required>
+            <option *ngFor="let e of eleves" [value]="e.id">
+              {{ e.user?.prenom }} {{ e.user?.nom }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="validationErrors" class="alert alert-danger mt-3">
+        <ul>
+          <li *ngFor="let err of validationErrors | keyvalue">{{ err.key }} : {{ err.value }}</li>
+        </ul>
+      </div>
+
+      <div class="d-flex justify-content-between mt-4">
+        <button class="btn btn-secondary" type="button" routerLink="/admin/tuteurs">
+          Retour
+        </button>
+        <button class="btn btn-success" type="submit" [disabled]="!tuteur.user_id">
+          {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</main>

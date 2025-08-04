@@ -24,4 +24,9 @@ export class MatiereClasseEnseignantService {
   delete(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  getByClasse(classeId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/classe/${classeId}`);
+}
+
 }
