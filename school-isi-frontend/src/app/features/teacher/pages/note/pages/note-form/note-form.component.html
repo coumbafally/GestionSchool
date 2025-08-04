@@ -1,0 +1,309 @@
+<div class="container-fluid p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">
+      <i class="fas fa-clipboard-list me-2"></i>
+      Gestion des Notes
+    </h2>
+    <button 
+      class="btn btn-primary"
+      (click)="toggleFormulaire()"
+      [disabled]="loading">
+      <i class="fas" [class.fa-plus]="!showForm" [class.fa-times]="showForm"></i>
+      {{ showForm ? 'Annuler' : 'Nouvelle Note' }}
+    </button>
+  </div>
+
+  <!-- Messages d'alerte -->
+  <div *ngIf="message" class="alert" 
+       [class.alert-success]="messageType === 'success'"
+       [class.alert-danger]="messageType === 'error'"
+       [class.alert-warning]="messageType === 'warning'">
+    <i class="fas" 
+       [class.fa-check-circle]="messageType === 'success'"
+       [class.fa-exclamation-triangle]="messageType === 'error' || messageType === 'warning'"></i>
+    {{ message }}
+  </div>
+
+  <!-- Formulaire d'ajout/modification -->
+  <div *ngIf="showForm" class="card mb-4">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <i class="fas fa-edit me-2"></i>
+        {{ isEditing ? 'Modifier la Note' : 'Ajouter une Note' }}
+      </h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <!-- Sélection Matière/Classe -->
+          <div class="col-md-6 mb-3">
+            <label for="mce_id" class="form-label">Matière - Classe *</label>
+            <select 
+              id="mce_id"
+              class="form-select"
+              formControlName="mce_id"
+              (change)="onAffectationChange()"
+              [class.is-invalid]="noteForm.get('mce_id')?.invalid && noteForm.get('mce_id')?.touched">
+              <option value="">Sélectionner une matière/classe</option>
+              <option *ngFor="let affectation of affectations" [value]="affectation.id">
+                {{ affectation.matiere.nom }} - {{ affectation.classe.nom }}
+              </option>
+            </select>
+            <div class="invalid-feedback">
+              Veuillez sélectionner une matière et une classe
+            </div>
+          </div>
+
+          <!-- Sélection Élève -->
+          <div class="col-md-6 mb-3">
+            <label for="eleve_id" class="form-label">Élève *</label>
+            <select 
+              id="eleve_id"
+              class="form-select"
+              formControlName="eleve_id"
+              [disabled]="!selectedClasseId"
+              [class.is-invalid]="noteForm.get('eleve_id')?.invalid && noteForm.get('eleve_id')?.touched">
+              <option value="">
+                {{ selectedClasseId ? 'Sélectionner un élève' : 'Sélectionnez d\'abord une classe' }}
+              </option>
+              <option *ngFor="let eleve of eleves" [value]="eleve.id">
+                {{ eleve.user.prenom }} {{ eleve.user.nom }}
+              </option>
+            </select>
+            <div class="invalid-feedback">
+              Veuillez sélectionner un élève
+            </div>
+          </div>
+
+          <!-- Type de note -->
+          <div class="col-md-6 mb-3">
+            <label for="type" class="form-label">Type *</label>
+            <select 
+              id="type"
+              class="form-select"
+              formControlName="type"
+              [class.is-invalid]="noteForm.get('type')?.invalid && noteForm.get('type')?.touched">
+              <option value="">Sélectionner le type</option>
+              <option value="Devoir">Devoir</option>
+              <option value="Examen">Examen</option>
+            </select>
+            <div class="invalid-feedback">
+              Veuillez sélectionner le type de note
+            </div>
+          </div>
+
+          <!-- Période -->
+          <div class="col-md-6 mb-3">
+            <label for="periode" class="form-label">Période *</label>
+            <select 
+              id="periode"
+              class="form-select"
+              formControlName="periode"
+              [class.is-invalid]="noteForm.get('periode')?.invalid && noteForm.get('periode')?.touched">
+              <option value="">Sélectionner la période</option>
+              <option value="1er Trimestre">1er Trimestre</option>
+              <option value="2ème Trimestre">2ème Trimestre</option>
+              <option value="3ème Trimestre">3ème Trimestre</option>
+            </select>
+            <div class="invalid-feedback">
+              Veuillez sélectionner la période
+            </div>
+          </div>
+
+          <!-- Note -->
+          <div class="col-md-6 mb-3">
+            <label for="note" class="form-label">Note (/20) *</label>
+            <input 
+              type="number"
+              id="note"
+              class="form-control"
+              formControlName="note"
+              min="0"
+              max="20"
+              step="0.25"
+              placeholder="Ex: 15.5"
+              [class.is-invalid]="noteForm.get('note')?.invalid && noteForm.get('note')?.touched">
+            <div class="invalid-feedback">
+              La note doit être entre 0 et 20
+            </div>
+          </div>
+
+          <!-- Coefficient -->
+          <div class="col-md-6 mb-3">
+            <label for="coefficient" class="form-label">Coefficient</label>
+            <input 
+              type="number"
+              id="coefficient"
+              class="form-control"
+              formControlName="coefficient"
+              min="0.1"
+              step="0.1"
+              placeholder="1 (par défaut)"
+              [class.is-invalid]="noteForm.get('coefficient')?.invalid && noteForm.get('coefficient')?.touched">
+            <div class="invalid-feedback">
+              Le coefficient doit être supérieur à 0
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button 
+            type="submit"
+            class="btn btn-success"
+            [disabled]="noteForm.invalid || submitting">
+            <i class="fas fa-save me-2"></i>
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-2"></span>
+            {{ isEditing ? 'Modifier' : 'Enregistrer' }}
+          </button>
+          <button 
+            type="button"
+            class="btn btn-secondary"
+            (click)="cancelForm()"
+            [disabled]="submitting">
+            <i class="fas fa-times me-2"></i>
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Liste des notes -->
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">
+        <i class="fas fa-list me-2"></i>
+        Liste des Notes ({{ notes.length }})
+      </h5>
+      <div class="d-flex gap-2">
+        <input 
+          type="text"
+          class="form-control form-control-sm"
+          placeholder="Rechercher..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+          style="width: 200px;">
+        <button class="btn btn-outline-secondary btn-sm" (click)="loadNotes()">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="card-body p-0">
+      <div *ngIf="loading" class="text-center p-4">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && filteredNotes.length === 0" class="text-center p-4 text-muted">
+        <i class="fas fa-inbox fa-3x mb-3"></i>
+        <p>{{ notes.length === 0 ? 'Aucune note enregistrée' : 'Aucune note trouvée pour cette recherche' }}</p>
+      </div>
+
+      <div *ngIf="!loading && filteredNotes.length > 0" class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Élève</th>
+              <th>Matière</th>
+              <th>Classe</th>
+              <th>Type</th>
+              <th>Période</th>
+              <th>Note</th>
+              <th>Coeff.</th>
+              <th>Appréciation</th>
+              <th>Date</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let note of filteredNotes; trackBy: trackByNoteId">
+              <td>
+                <div class="fw-semibold">
+                  {{ note.eleve?.user?.prenom }} {{ note.eleve?.user?.nom }}
+                </div>
+              </td>
+              <td>{{ note.matiere_classe_enseignant?.matiere?.nom }}</td>
+              <td>
+                <span class="badge bg-secondary">
+                  {{ note.matiere_classe_enseignant?.classe?.nom }}
+                </span>
+              </td>
+              <td>
+                <span class="badge" 
+                      [class.bg-primary]="note.type === 'Devoir'"
+                      [class.bg-warning]="note.type === 'Examen'">
+                  {{ note.type }}
+                </span>
+              </td>
+              <td>{{ note.periode }}</td>
+              <td>
+                <span class="fw-bold fs-5"
+                      [class.text-success]="note.note >= 16"
+                      [class.text-warning]="note.note >= 10 && note.note < 16"
+                      [class.text-danger]="note.note < 10">
+                  {{ note.note }}/20
+                </span>
+              </td>
+              <td>{{ note.coefficient }}</td>
+              <td>
+                <small class="text-muted fst-italic">
+                  {{ note.appreciation || 'Aucune' }}
+                </small>
+              </td>
+              <td>
+                <small class="text-muted">
+                  <!-- {{ note.created_at | date:'dd/MM/yyyy HH:mm' }} -->
+                </small>
+              </td>
+              <td class="text-center">
+                <div class="btn-group btn-group-sm">
+                  <button 
+                    class="btn btn-outline-primary"
+                    (click)="editNote(note)"
+                    title="Modifier">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button 
+                    class="btn btn-outline-danger"
+                    (click)="confirmDelete(note)"
+                    title="Supprimer">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmer la suppression</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer cette note ?</p>
+        <div *ngIf="noteToDelete" class="alert alert-warning">
+          <strong>Élève :</strong> {{ noteToDelete.eleve?.user?.prenom }} {{ noteToDelete.eleve?.user?.nom }}<br>
+          <strong>Note :</strong> {{ noteToDelete.note }}/20<br>
+          <strong>Type :</strong> {{ noteToDelete.type }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger" (click)="deleteNote()" [disabled]="submitting">
+          <span *ngIf="submitting" class="spinner-border spinner-border-sm me-2"></span>
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
