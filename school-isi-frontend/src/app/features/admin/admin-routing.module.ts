@@ -13,7 +13,9 @@ import { TuteurFormComponent } from './pages/tuteur/pages/tuteur-form/tuteur-for
 import { NoteClasseComponent } from './pages/note/pages/note-classe/note-classe.component';
 import { NoteFormComponent } from './pages/note/pages/note-form/note-form.component';
 import { NoteClasseSelectionComponent } from './pages/note/pages/note-classe-selection/note-classe-selection.component';
-
+import { BulletinAdminComponent } from './pages/bulletin/bulletin-admin/bulletin-admin.component';
+import { MesBulletinsComponent } from './pages/bulletin/mes-bulletins/mes-bulletins.component';
+import { BulletinDetailComponent } from './pages/bulletin/bulletin-detail/bulletin-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -56,6 +58,14 @@ const routes: Routes = [
   { path: 'affectations', component: AffectationFormComponent, canActivate: [authGuard] },
   { path: 'affectations/create', component: AffectationFormComponent, canActivate: [authGuard] },
   { path: 'affectations/edit/:id', component: AffectationFormComponent, canActivate: [authGuard] },
+
+  //bulletin
+  { path: 'bulletins/eleve', component: MesBulletinsComponent, canActivate: [authGuard] },
+  { path: 'bulletins/admin', component: BulletinAdminComponent, canActivate: [authGuard] },
+  { path: 'bulletins/classe', component: BulletinAdminComponent, canActivate: [authGuard] },
+  { path: 'bulletins/eleve/:eleveId', component: BulletinDetailComponent, canActivate: [authGuard] }
+
+
 
 ];
 

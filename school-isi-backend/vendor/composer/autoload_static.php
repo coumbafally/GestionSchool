@@ -581,6 +581,8 @@ class ComposerStaticInitc9479c9eb92bb711f3093177c7f447cf
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Middleware\\IsAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/IsAdmin.php',
         'App\\Http\\Middleware\\IsEleve' => __DIR__ . '/../..' . '/app/Http/Middleware/IsEleve.php',
+        'App\\Http\\Middleware\\IsTuteur' => __DIR__ . '/../..' . '/app/Http/Middleware/IsTuteur.php',
+        'App\\Mail\\WelcomeUserMail' => __DIR__ . '/../..' . '/app/Mail/WelcomeUserMail.php',
         'App\\Models\\Bulletin' => __DIR__ . '/../..' . '/app/Models/Bulletin.php',
         'App\\Models\\Classe' => __DIR__ . '/../..' . '/app/Models/Classe.php',
         'App\\Models\\Document' => __DIR__ . '/../..' . '/app/Models/Document.php',

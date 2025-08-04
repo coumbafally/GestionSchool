@@ -20,6 +20,8 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Middleware\\IsAdmin' => $baseDir . '/app/Http/Middleware/IsAdmin.php',
     'App\\Http\\Middleware\\IsEleve' => $baseDir . '/app/Http/Middleware/IsEleve.php',
+    'App\\Http\\Middleware\\IsTuteur' => $baseDir . '/app/Http/Middleware/IsTuteur.php',
+    'App\\Mail\\WelcomeUserMail' => $baseDir . '/app/Mail/WelcomeUserMail.php',
     'App\\Models\\Bulletin' => $baseDir . '/app/Models/Bulletin.php',
     'App\\Models\\Classe' => $baseDir . '/app/Models/Classe.php',
     'App\\Models\\Document' => $baseDir . '/app/Models/Document.php',

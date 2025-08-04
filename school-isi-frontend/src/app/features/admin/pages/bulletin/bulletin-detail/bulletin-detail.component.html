@@ -1,0 +1,51 @@
+<div class="container mt-4">
+    
+      <h2>Bulletin - {{ periode }}</h2>
+
+        <div class="eleve-info mb-3">
+            <p><strong>Nom et prénom :</strong> {{ eleve?.user?.nom }} {{ eleve?.user?.prenom }}</p>
+            <p><strong>Classe :</strong> {{ eleve?.classe?.nom }} ({{ eleve?.classe?.niveau }})</p>
+            <p><strong>Date & lieu de naissance :</strong> {{ eleve?.date_naissance }} à {{ eleve?.lieu_naissance }}</p>
+            <p><strong>Identifiant élève :</strong> {{ eleve?.identifiant_eleve }}</p>
+            <p><strong>Email :</strong> {{ eleve?.user?.email }}</p>
+        </div>
+
+
+  <div *ngFor="let matiere of bulletin" class="card mb-3">
+
+    <div class="card-body p-0">
+      <table class="table table-striped table-bordered mb-0">
+        <thead>
+          <tr>
+            <th>Matière</th>
+            <th>Type</th>
+            <th>Note</th>
+            <th>Coefficient</th>
+            <th>Moyenne</th>
+            <th>Appréciation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let n of matiere.notes">
+            <td>{{ matiere.matiere }}</td>
+            <td>{{ n.type }}</td>
+            <td>{{ n.note }}</td>
+            <td>{{ n.coef }}</td>
+            <td>{{ matiere.moyenne }}</td>
+            <td>{{ n.appreciation }}</td>
+          </tr>
+        </tbody>
+      </table>
+        <p><strong>Moyenne du semestre :</strong> {{ moyenneGenerale }}</p>
+        <p><strong>Appréciation conseil de classe :</strong> {{ mention }}</p>
+    </div>
+    <!-- pour la signature du directeur-->
+    <div class="card-footer text-end">
+      <p><strong>Signature du directeur :</strong> ____________________</p>
+      <p><strong>Date :</strong> ____________________</p>
+
+  </div>
+</div>
+  <button class="btn btn-success mb-3" (click)="telechargerBulletinPdf()">
+  <i class="bi bi-download"></i> Télécharger en PDF
+</button>

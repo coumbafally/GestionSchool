@@ -1,0 +1,28 @@
+
+<div *ngFor="let bulletin of bulletins" class="card mb-4">
+    <div class="card-header">Période : {{ bulletin.periode }}</div>
+    <div class="card-body">
+        <table class="table table-bordered">
+        <thead>
+            <tr>
+            <th>Matière</th>
+            <th>Type</th>
+            <th>Note</th>
+            <th>Coef</th>
+            <th>Appréciation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let note of bulletin.notes">
+            <td>{{ note.matiere }}</td>
+            <td>{{ note.type }}</td>
+            <td>{{ note.note }}</td>
+            <td>{{ note.coef }}</td>
+            <td>{{ note.appreciation }}</td>
+            </tr>
+        </tbody>
+        </table>
+        <p><strong>Moyenne générale : </strong>{{ bulletin.moyenne }}</p>
+        <p><strong>Mention : </strong>{{ bulletin.mention }}</p>
+    </div>
+</div>

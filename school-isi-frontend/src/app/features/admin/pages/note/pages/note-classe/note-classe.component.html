@@ -32,8 +32,8 @@
         <label>Période</label>
         <select class="form-select" title="periode" [(ngModel)]="periode" name="periode" required>
           <option value="">-- Sélectionner une période --</option>
-          <option value="semestre 1">Semestre 1</option>
-          <option value="semestre 2">Semestre 2</option>
+          <option value="semestre 1">semestre 1</option>
+          <option value="semestre 2">semestre 2</option>
         </select>
       </div>
 
@@ -77,9 +77,13 @@
               <td>{{ n.coefficient }}</td>
               <td>{{ n.appreciation }}</td>
               <td>
+                <a [routerLink]="['/admin/bulletins/eleve', eleve.id]" title="voir bulletin" [queryParams]="{ periode: 'semestre 1' }">
+                  <i class="bi bi-file-earmark-text"></i>
+                </a>
                 <a [routerLink]="['/admin/notes/edit', n.id]" class="btn btn-sm btn-warning text-white" title="Modifier">
                   <i class="bi bi-pencil"></i>
                 </a>
+
               </td>
             </tr>
           </ng-container>

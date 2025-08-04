@@ -1,0 +1,66 @@
+<div class="container">
+  <h2>Bulletins des élèves par classe</h2>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label>Classe</label>
+      <select class="form-select" title="classes"  [(ngModel)]="selectedClasseId">
+        <option [ngValue]="null">-- Sélectionner une classe --</option>
+        <option *ngFor="let c of classes" [value]="c.id">{{ c.nom }} ({{ c.niveau }})</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label>Période</label>
+      <select class="form-select" title="periode" [(ngModel)]="periode">
+        <option value="">-- Sélectionner une période --</option>
+        <option value="semestre 1">semestre 1</option>
+        <option value="semestre 2">semestre 2</option>
+      </select>
+    </div>
+
+    <div class="col-md-4 d-flex align-items-end">
+      <button class="btn btn-primary w-100" (click)="chargerBulletins()">Charger les bulletins</button>
+    </div>
+  </div>
+
+  <div *ngIf="bulletins.length > 0">
+    <div *ngFor="let b of bulletins" class="card mb-4">
+      <div class="card-header">
+        <strong>{{ b.eleve }}</strong> – Identifiant : {{ b.identifiant }}
+        <button class="btn btn-sm btn-outline-success float-end" (click)="telechargerBulletinPdf(b.identifiant)">
+          Télécharger PDF
+        </button>
+      </div>
+      <div class="card-body">
+        <p><strong>Moyenne générale :</strong> {{ b.moyenne }}</p>
+        <p><strong>Mention :</strong> {{ b.mention }}</p>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Matière</th>
+              <th>Type</th>
+              <th>Note</th>
+              <th>Coef</th>
+              <th>Appréciation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let note of b.notes">
+              <td>{{ note.matiere }}</td>
+              <td>{{ note.type }}</td>
+              <td>{{ note.note }}</td>
+              <td>{{ note.coefficient }}</td>
+              <td>{{ note.appreciation }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="bulletins.length === 0 && selectedClasseId && periode" class="alert alert-info mt-4">
+    Aucun bulletin trouvé pour cette classe et période.
+  </div>
+</div>

@@ -13,6 +13,8 @@ import { MatiereFormComponent } from './pages/matiere/pages/matiere-form/matiere
 import { TuteurFormComponent } from './pages/tuteur/pages/tuteur-form/tuteur-form.component';
 import { NoteFormComponent } from './pages/note/pages/note-form/note-form.component';
 import { NoteClasseComponent } from './pages/note/pages/note-classe/note-classe.component';
+import { BulletinAdminComponent } from './pages/bulletin/bulletin-admin/bulletin-admin.component';
+import { BulletinDetailComponent } from './pages/bulletin/bulletin-detail/bulletin-detail.component';
 
 
 
@@ -20,7 +22,9 @@ import { NoteClasseComponent } from './pages/note/pages/note-classe/note-classe.
   declarations: [
     AdminDashboardComponent,
     NavbarComponent,
-    ListeTuteurComponent
+    ListeTuteurComponent,
+
+
   ],
   imports: [
     CommonModule,
@@ -31,7 +35,9 @@ import { NoteClasseComponent } from './pages/note/pages/note-classe/note-classe.
     HttpClientModule,
     ToastrModule.forRoot(),
     MatiereFormComponent,
-    TuteurFormComponent
+    TuteurFormComponent,
+    BulletinAdminComponent, 
+    BulletinDetailComponent,
   ]
 })
 export class AdminModule {}

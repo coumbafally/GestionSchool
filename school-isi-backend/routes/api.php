@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\DashboardController;
 // Enregistrement des middlewares personnalisés
 app('router')->aliasMiddleware('can:is-admin', \App\Http\Middleware\IsAdmin::class);
 app('router')->aliasMiddleware('can:is-eleve', \App\Http\Middleware\IsEleve::class);
+app('router')->aliasMiddleware('can:is-tuteur', \App\Http\Middleware\IsTuteur::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -107,10 +108,10 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
         Route::get('/moyenne/{eleveId}/{periode}', [NoteController::class, 'moyenneParPeriode']);
         Route::get('/classe/{classeId}/periode/{periode}', [NoteController::class, 'notesParClasseEtPeriode']);
         Route::get('/admin/eleves/{eleveId}/bulletin/{periode}', [NoteController::class, 'bulletinParEleveEtPeriode']);
-
+  
         
     });
-
+    
 
     //users
     Route::get('/users', [UserController::class, 'index']);
@@ -118,10 +119,13 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
     //document éléve
     Route::get('/admin/eleves/{id}/documents', [EleveController::class, 'showWithDocuments']);
 
-    //bulletins
-    Route::get('bulletins/{eleveId}/{periode}/pdf', [NoteController::class, 'genererBulletinPdf']);
 
 });
+    Route::get('/admin/eleves/{eleveId}/bulletin/{periode}', [NoteController::class, 'bulletinParEleveEtPeriode']);
+
+
+    Route::get('bulletins/{eleveId}/{periode}/pdf', [NoteController::class, 'genererBulletinPdf']);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -132,3 +136,15 @@ Route::middleware(['auth:api', 'can:is-admin'])->prefix('admin')->group(function
 Route::middleware(['auth:api', 'can:is-eleve'])->prefix('eleve')->group(function () {
     Route::get('bulletins', [EleveController::class, 'mesBulletins']);
 });
+
+
+/*--------------------------------------------------------------------------
+| Routes pour le TUTEUR connecté
+|--------------------------------------------------------------------------
+*/
+
+
+Route::middleware(['auth:api', 'can:is-tuteur'])->prefix('tuteur')->group(function () {
+  //  Route::get('bulletins/{eleveId}/{periode}/pdf', [\App\Http\Controllers\Admin\NoteController::class, 'genererBulletinPdfPourTuteur']);
+});
+
