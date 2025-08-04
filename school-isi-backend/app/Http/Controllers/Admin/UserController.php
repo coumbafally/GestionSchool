@@ -13,6 +13,9 @@ class UserController extends Controller
         return response()->json(User::where('role', 'eleve')->get());
 
         return response()->json(User::all());
+
+
+        
     }
 }
 

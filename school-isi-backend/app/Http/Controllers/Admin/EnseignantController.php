@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Enseignant;
 use App\Models\User;
+use App\Models\Classe;
+use App\Models\Matiere;
+use App\Models\MatiereClasseEnseignant;
+use App\Models\Eleve;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeUserMail;
 use Illuminate\Support\Facades\Mail;
@@ -90,7 +94,31 @@ public function store(Request $request)
         return response()->json(['message' => 'Enseignant supprimé']);
     }
 
- 
+    public function mesMatieres(Request $request)
+    {
+        $enseignant = $request->user()->enseignant;
+
+        $matieres = $enseignant
+            ->matieres() 
+            ->get();
+
+        return response()->json($matieres);
+    }
+
+   public function mesNotes()
+{
+    $enseignantId = auth()->user()->enseignant->id;
+
+    $notes = Note::whereHas('mce', function ($query) use ($enseignantId) {
+        $query->where('enseignant_id', $enseignantId);
+    })
+    ->with(['eleve', 'mce.classe', 'mce.matiere'])
+    ->get();
+
+    return response()->json($notes);
 }
+}
+
+ 
 
 

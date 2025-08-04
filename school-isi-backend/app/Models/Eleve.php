@@ -16,15 +16,19 @@ class Eleve extends Model
         'identifiant_eleve'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
+    
     public function classe() {
         return $this->belongsTo(Classe::class);
     }
+
     public function tuteur() {
         return $this->hasOne(Tuteur::class);
     }
+
     public function documents() {
         return $this->hasMany(Document::class);
         

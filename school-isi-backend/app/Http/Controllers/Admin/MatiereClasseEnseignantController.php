@@ -69,4 +69,37 @@ class MatiereClasseEnseignantController extends Controller
         $affectation->delete();
         return response()->json(['message' => 'Affectation supprimée']);
     }
+
+      public function mesClasses()
+    {
+        $enseignantId = Auth::user()->enseignant->id;
+
+        $classes = MatiereClasseEnseignant::where('enseignant_id', $enseignantId)
+                    ->with('classe')
+                    ->get()
+                    ->pluck('classe')
+                    ->unique('id')
+                    ->values();
+
+        return response()->json($classes);
+    }
+
+    public function mesMatieres()
+    {
+        $enseignantId = Auth::user()->enseignant->id;
+
+        $matieres = MatiereClasseEnseignant::where('enseignant_id', $enseignantId)
+                    ->with('matiere')
+                    ->get()
+                    ->pluck('matiere')
+                    ->unique('id')
+                    ->values();
+
+        return response()->json($matieres);
+    }
+
+    public function elevesParClasse($classeId)
+    {
+        return response()->json(Eleve::where('classe_id', $classeId)->get());
+    }
 }
