@@ -145,6 +145,6 @@ Route::middleware(['auth:api', 'can:is-eleve'])->prefix('eleve')->group(function
 
 
 Route::middleware(['auth:api', 'can:is-tuteur'])->prefix('tuteur')->group(function () {
-  //  Route::get('bulletins/{eleveId}/{periode}/pdf', [\App\Http\Controllers\Admin\NoteController::class, 'genererBulletinPdfPourTuteur']);
+   Route::get('bulletins/{eleveId}/{periode}/pdf', [\App\Http\Controllers\Admin\NoteController::class, 'genererBulletinPdfPourTuteur']);
 });
 

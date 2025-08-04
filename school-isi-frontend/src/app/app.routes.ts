@@ -3,6 +3,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
 import { HomeEleveComponent } from './features/student/pages/home-eleve/home-eleve.component';
 import { MesBulletinsComponent } from './features/student/pages/mes-bulletins/mes-bulletins.component';
+import { HomeTuteurComponent } from './features/tuteur/pages/home-tuteur/home-tuteur.component';
 
 
 
@@ -42,6 +43,7 @@ export const routes: Routes = [
   },
 
 
+
   {
     path: 'student',
     canActivate: [authGuard, roleGuard],
@@ -49,9 +51,10 @@ export const routes: Routes = [
     loadChildren: () => import('./features/student/student.module').then(m => m.StudentModule)
   },
 
+
   { path: 'bulletins/eleve', component: MesBulletinsComponent, canActivate: [authGuard] },
-{ path: 'home-eleve', component: HomeEleveComponent, canActivate: [authGuard] },
-{ path: '', redirectTo: 'home-eleve', pathMatch: 'full' },
+  { path: 'home-eleve', component: HomeEleveComponent, canActivate: [authGuard] },
+  { path: '', redirectTo: 'home-eleve', pathMatch: 'full' },
 
   
   

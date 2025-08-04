@@ -168,7 +168,7 @@ class EleveController extends Controller
         return response()->json(['message' => 'Élève supprimé']);
     }
 
-public function mesBulletins(Request $request)
+public function mesBulletinss(Request $request)
 {
     $user = Auth::user();
     $eleve = Eleve::where('user_id', $user->id)->first();
@@ -211,6 +211,35 @@ public function mesBulletins(Request $request)
 
     return response()->json($resultat);
 }
+
+public function mesBulletins(Request $request)
+{
+    $user = $request->user(); // auth()->user() fonctionne aussi
+    $eleve = $user->eleve;
+
+    if (!$eleve) {
+        return response()->json([], 200); // Aucun bulletin car pas lié à un élève
+    }
+
+    $periodes = Note::where('eleve_id', $eleve->id)
+                    ->distinct()
+                    ->pluck('periode');
+
+    $bulletins = [];
+
+    foreach ($periodes as $periode) {
+        $data = app(NoteController::class)->bulletinParEleveEtPeriode($eleve->id, $periode)->getData(true);
+
+        $bulletins[] = [
+            'periode' => $periode,
+            'moyenne' => $data['moyenne_generale'],
+            'mention' => $data['mention']
+        ];
+    }
+
+    return response()->json($bulletins);
+}
+
 
 
 

@@ -1,28 +1,20 @@
 
-<div *ngFor="let bulletin of bulletins" class="card mb-4">
-    <div class="card-header">Période : {{ bulletin.periode }}</div>
+<div class="container mt-4">
+  <h3>Mes Bulletins</h3>
+
+  <div *ngIf="bulletins.length === 0">
+    <p>Aucun bulletin disponible.</p>
+  </div>
+
+  <div *ngFor="let b of bulletins" class="card mb-3">
     <div class="card-body">
-        <table class="table table-bordered">
-        <thead>
-            <tr>
-            <th>Matière</th>
-            <th>Type</th>
-            <th>Note</th>
-            <th>Coef</th>
-            <th>Appréciation</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let note of bulletin.notes">
-            <td>{{ note.matiere }}</td>
-            <td>{{ note.type }}</td>
-            <td>{{ note.note }}</td>
-            <td>{{ note.coef }}</td>
-            <td>{{ note.appreciation }}</td>
-            </tr>
-        </tbody>
-        </table>
-        <p><strong>Moyenne générale : </strong>{{ bulletin.moyenne }}</p>
-        <p><strong>Mention : </strong>{{ bulletin.mention }}</p>
+      <p><strong>Semestre :</strong> {{ b.periode }}</p>
+      <p><strong>Moyenne générale :</strong> {{ b.moyenne_generale }}</p>
+      <p><strong>Mention :</strong> {{ b.mention }}</p>
+
+      <button class="btn btn-success" (click)="telechargerBulletinPdf(b.eleve_id, b.periode)">
+        Télécharger le PDF
+      </button>
     </div>
+  </div>
 </div>

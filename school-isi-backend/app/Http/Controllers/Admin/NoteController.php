@@ -8,6 +8,7 @@ use App\Models\Note;
 use App\Models\Eleve;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Api\AuthController;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -229,7 +230,7 @@ class NoteController extends Controller
     }
 
 
-/*
+
     public function genererBulletinPdfPourTuteur($eleveId, $periode)
 {
     $user = Auth::user();
@@ -271,17 +272,17 @@ class NoteController extends Controller
 
     $moyenne = $coeffTotal ? round($total / $coeffTotal, 2) : 0;
 
-    // Génération du PDF
-    $pdf = \PDF::loadView('pdf.bulletin', [
+    $pdf = PDF::loadView('pdf.bulletin', [
         'eleve' => $eleve,
         'periode' => $periode,
         'notes' => $details,
         'moyenne' => $moyenne,
         'mention' => $this->mention($moyenne)
     ]);
+    
 
     return $pdf->download("Bulletin_{$eleve->user->nom}_{$periode}.pdf");
 }
-*/
+
 
 }
